@@ -84,7 +84,7 @@ main{padding:24px 0 8px}
 .card + .card{margin-top:16px}
 h2{font-size:1.05rem; margin:0 0 12px; letter-spacing:-.01em}
 h2 .sec{color:var(--muted); font-weight:500}
-.grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); margin-bottom:16px}
+.grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); margin-bottom:16px; align-items:start}
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin-bottom:16px}
 .stat{
   background:var(--surface); border:1px solid var(--line); border-radius:14px;
@@ -100,6 +100,8 @@ h2 .sec{color:var(--muted); font-weight:500}
 .muted{color:var(--muted); font-size:.88rem}
 .bookings{list-style:none; padding:0; margin:0}
 .bookings li{display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px dashed var(--line)}
+.bookings li > div{flex:1; min-width:0}
+.bookings li > b:last-child{white-space:nowrap; font-variant-numeric:tabular-nums}
 .bookings li:last-child{border-bottom:0}
 .bookings .ok{color:var(--ok); font-weight:800}
 .bookings small{display:block; color:var(--muted); font-size:.8rem}
