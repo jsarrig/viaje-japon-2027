@@ -48,6 +48,21 @@
   }
   .toolbar button:hover, .toolbar a:hover{background:#f4ecdf}
 
+  .stage-wrap{
+    position:relative;
+    width:100%;
+    height:148mm;
+  }
+  .stage{
+    position:absolute;
+    left:50%;
+    top:0;
+    width:210mm;
+    height:148mm;
+    transform:translateX(-50%);
+    transform-origin:top center;
+  }
+
   .card{
     position:relative;
     width:210mm;
@@ -271,9 +286,23 @@
     html,body{width:210mm;height:148mm;background:#fff}
     body{padding:0;display:block}
     .toolbar{display:none!important}
+    .stage-wrap{
+      position:static!important;
+      height:auto!important;
+      width:auto!important;
+    }
+    .stage{
+      position:static!important;
+      transform:none!important;
+      left:auto!important;
+      top:auto!important;
+      width:210mm!important;
+      height:148mm!important;
+    }
     .card{
       width:210mm;
       height:148mm;
+      max-width:none;
       box-shadow:none;
     }
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -288,6 +317,8 @@
     <span>Formato A5 horizontal · sin márgenes</span>
   </div>
 
+  <div class="stage-wrap" id="stageWrap">
+    <div class="stage" id="stage">
   <article class="card" aria-label="Tarjeta regalo del viaje a Japón para Leire">
     <div class="sun" aria-hidden="true"></div>
     <span class="petal p1" aria-hidden="true"></span>
@@ -338,6 +369,25 @@
       </div>
     </div>
   </article>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var wrap = document.getElementById('stageWrap');
+    var stage = document.getElementById('stage');
+    function fit(){
+      var w = stage.offsetWidth;
+      var h = stage.offsetHeight;
+      var avail = Math.max(240, document.documentElement.clientWidth - 32);
+      var s = Math.min(1, avail / w);
+      stage.style.transform = 'translateX(-50%) scale(' + s + ')';
+      wrap.style.height = (h * s) + 'px';
+    }
+    window.addEventListener('resize', fit);
+    fit();
+  })();
+  </script>
 
 </body>
 </html>
