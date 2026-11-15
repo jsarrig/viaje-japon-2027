@@ -325,7 +325,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
 
   <section class="panel" id="transporte" aria-label="Transporte">
     <div class="card">
-      <h2>Transporte <span class="sec">· por persona</span></h2>
+      <h2>Transporte <span class="sec" id="trSub">· por persona</span></h2>
       <div class="controls">
         <label class="field" for="rate">Cambio: 1 € = <input id="rate" type="number" min="100" max="300" step="1" value="170" inputmode="numeric"> ¥</label>
         <div class="seg" id="trMode" role="group" aria-label="Modo de importe">
@@ -346,7 +346,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
 
   <section class="panel" id="presupuesto" aria-label="Presupuesto">
     <div class="card">
-      <h2>Presupuesto <span class="sec">· 4 personas</span></h2>
+      <h2>Presupuesto <span class="sec" id="bSub">· 4 personas</span></h2>
       <div class="controls">
         <div class="seg" id="bMode" role="group" aria-label="Modo de importe">
           <button type="button" data-mode="total" class="active">Total 4</button>
@@ -491,7 +491,10 @@ const CHECKLIST = [
 
 const nf0 = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0 });
 const nf1 = new Intl.NumberFormat('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const nfYen = new Intl.NumberFormat('en-US');
+const eur0 = v => nf0.format(Math.round(v)) + ' €';
 const eur1 = v => nf1.format(v) + ' €';
+const yenf = v => nfYen.format(v).replace(/,/g, '.') + ' ¥';
 
 /* Tabs */
 const tabs = Array.from(document.querySelectorAll('.tab'));
@@ -595,13 +598,14 @@ let trMode = 'pax';
 function renderTransport() {
   const rate = Math.max(1, Number(rateInput.value) || 170);
   const mult = trMode === 'total' ? 4 : 1;
+  document.getElementById('trSub').textContent = '· ' + (trMode === 'total' ? 'total 4' : 'por persona');
   let yenTotal = 0;
   trBody.innerHTML = TRANSPORT.map(r => {
     const yen = r.yen * mult;
     yenTotal += yen;
-    return '<tr><td>' + r.t + '</td><td class="num">' + nf0.format(yen) + ' ¥</td><td class="num">' + eur1(yen / rate) + '</td></tr>';
+    return '<tr><td>' + r.t + '</td><td class="num">' + yenf(yen) + '</td><td class="num">' + eur1(yen / rate) + '</td></tr>';
   }).join('');
-  trYen.textContent = nf0.format(yenTotal) + ' ¥';
+  trYen.textContent = yenf(yenTotal);
   trEur.textContent = eur1(yenTotal / rate);
 }
 
@@ -624,14 +628,15 @@ let bMode = 'total';
 
 function renderBudget() {
   const div = bMode === 'pax' ? 4 : 1;
+  document.getElementById('bSub').textContent = '· ' + (bMode === 'pax' ? 'por persona' : '4 personas');
   let minT = 0, maxT = 0;
   bBody.innerHTML = BUDGET.map(r => {
     const min = r.min / div, max = r.max / div;
     minT += min; maxT += max;
-    return '<tr><td>' + r.c + '</td><td class="num">' + eur1(min) + '</td><td class="num">' + eur1(max) + '</td></tr>';
+    return '<tr><td>' + r.c + '</td><td class="num">' + eur0(min) + '</td><td class="num">' + eur0(max) + '</td></tr>';
   }).join('');
-  bMin.textContent = eur1(minT);
-  bMax.textContent = eur1(maxT);
+  bMin.textContent = eur0(minT);
+  bMax.textContent = eur0(maxT);
 }
 
 bModeEl.querySelectorAll('button').forEach(b => {
