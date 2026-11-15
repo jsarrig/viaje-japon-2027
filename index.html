@@ -546,12 +546,15 @@ function renderFilters() {
 function renderDays() {
   daysEl.innerHTML = DAYS.map(d => {
     const c = CITY[d.city];
+    const sub = d.sleep === 'En vuelo' ? 'Salida 09:55 · llegada 11:20 (+1)'
+      : d.sleep === '—' ? 'Vuelo de vuelta · 08:55'
+      : 'Duerme: ' + d.sleep;
     const items = d.items.map(i => '<li>' + i + '</li>').join('');
     return '<article class="day' + (d.hot ? ' hot' : '') + '" data-city="' + d.city + '" style="--c:' + c.color + '">' +
       '<details open>' +
         '<summary>' +
           '<span class="daynum">D' + d.n + '</span>' +
-          '<span class="dayhead"><b>' + d.date + ' · ' + d.title + '</b><span>' + d.items[0] + '</span></span>' +
+          '<span class="dayhead"><b>' + d.date + ' · ' + d.title + '</b><span>' + sub + '</span></span>' +
           '<span class="city">' + c.label + '</span>' +
         '</summary>' +
         '<div class="daybody">' +
