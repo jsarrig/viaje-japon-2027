@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarjeta regalo · Leire</title>
+<style>
+  :root{
+    --paper:#fbf7ef;
+    --ink:#2c2723;
+    --muted:#7c7066;
+    --red:#b5122e;
+    --red-soft:#d9465c;
+    --gold:#b08a4f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    padding:28px 16px;
+    background:#e8e1d5;
+    color:var(--ink);
+    font-family:"Yu Mincho","Hiragino Mincho ProN","Times New Roman",Georgia,serif;
+  }
+  .toolbar{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:13px;
+    color:#5e554c;
+  }
+  .toolbar button, .toolbar a{
+    border:1px solid #c9bfae;
+    background:#fffdf8;
+    color:#4a423a;
+    padding:8px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    font:inherit;
+    font-weight:600;
+    text-decoration:none;
+  }
+  .toolbar button:hover, .toolbar a:hover{background:#f4ecdf}
+
+  .card{
+    position:relative;
+    width:210mm;
+    height:148mm;
+    max-width:100%;
+    overflow:hidden;
+    background:var(--paper);
+    box-shadow:0 18px 50px rgba(52,38,20,.22);
+    isolation:isolate;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    inset:7mm;
+    border:1px solid rgba(176,138,79,.55);
+    pointer-events:none;
+    z-index:4;
+  }
+  .card::after{
+    content:"";
+    position:absolute;
+    inset:8.2mm;
+    border:1px solid rgba(181,18,46,.18);
+    pointer-events:none;
+    z-index:4;
+  }
+
+  .sun{
+    position:absolute;
+    width:112mm;
+    height:112mm;
+    border-radius:50%;
+    right:-34mm;
+    top:-32mm;
+    background:radial-gradient(circle at 38% 38%, #d94e60 0%, var(--red) 58%, #8f0d23 100%);
+    box-shadow:inset -6mm -8mm 18mm rgba(80,0,12,.28);
+    z-index:0;
+  }
+  .sun::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.18), transparent 55%);
+  }
+
+  .wave{
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:44mm;
+    z-index:1;
+    opacity:.5;
+  }
+
+  .content{
+    position:relative;
+    z-index:3;
+    height:100%;
+    padding:17mm 16mm 15mm 17mm;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .eyebrow{
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:8.2pt;
+    font-weight:600;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  .to{
+    margin-top:8mm;
+    font-size:11pt;
+    letter-spacing:.08em;
+    color:var(--muted);
+  }
+  .to strong{
+    display:block;
+    margin-top:1mm;
+    color:var(--ink);
+    font-size:25pt;
+    font-weight:500;
+    letter-spacing:.01em;
+  }
+
+  .title{
+    margin:auto 0 0;
+    font-weight:500;
+    line-height:.86;
+    letter-spacing:-.015em;
+  }
+  .title .small{
+    display:block;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:10pt;
+    font-weight:600;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:4mm;
+  }
+  .title .big{
+    display:block;
+    font-size:62pt;
+  }
+
+  .dates{
+    margin-top:7mm;
+    display:flex;
+    align-items:center;
+    gap:5mm;
+  }
+  .dates .line{
+    width:16mm;
+    height:1px;
+    background:var(--gold);
+  }
+  .dates .date{
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:11pt;
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+
+  .cities{
+    margin-top:6mm;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:2.4mm 4.2mm;
+    font-size:13.5pt;
+    letter-spacing:.06em;
+  }
+  .cities .dot{
+    width:2.3mm;
+    height:2.3mm;
+    border-radius:50%;
+    background:var(--red);
+    opacity:.75;
+  }
+
+  .foot{
+    margin-top:auto;
+    padding-top:6mm;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:6mm;
+  }
+  .foot .message{
+    max-width:92mm;
+  }
+  .foot .note{
+    margin:0;
+    font-size:9.6pt;
+    font-style:italic;
+    color:var(--muted);
+  }
+  .foot .note-jp{
+    margin:2.2mm 0 0;
+    font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+    font-size:8.4pt;
+    line-height:1.65;
+    letter-spacing:.02em;
+    color:var(--muted);
+  }
+  .foot .seal{
+    flex:0 0 auto;
+    text-align:right;
+    line-height:1.15;
+    color:var(--red);
+  }
+  .foot .seal .jp{
+    font-size:19pt;
+    letter-spacing:.18em;
+  }
+  .foot .seal .jp-love{
+    margin-top:1.2mm;
+    font-family:"Yu Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+    font-size:11pt;
+    letter-spacing:.12em;
+  }
+  .foot .seal .en{
+    margin-top:1.4mm;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:6.8pt;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .foot .seal .sign{
+    margin-top:2.2mm;
+    font-size:8.6pt;
+    font-style:italic;
+    letter-spacing:.06em;
+    color:var(--ink);
+  }
+
+  .petal{
+    position:absolute;
+    width:6.4mm;
+    height:6.4mm;
+    background:linear-gradient(145deg, #f5b7c0, #e57f91);
+    border-radius:80% 0 80% 0;
+    transform:rotate(35deg);
+    opacity:.7;
+    z-index:2;
+  }
+  .petal.p1{left:11mm; top:23mm; transform:rotate(22deg) scale(.85)}
+  .petal.p2{left:19mm; top:39mm; transform:rotate(68deg) scale(.55); opacity:.5}
+  .petal.p3{right:47mm; bottom:31mm; transform:rotate(-15deg) scale(.7); opacity:.45}
+
+  @media print{
+    @page{size:A5 landscape;margin:0}
+    html,body{width:210mm;height:148mm;background:#fff}
+    body{padding:0;display:block}
+    .toolbar{display:none!important}
+    .card{
+      width:210mm;
+      height:148mm;
+      box-shadow:none;
+    }
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">Imprimir o guardar en PDF</button>
+    <a href="tarjeta-regalo-leire.pdf" download>Descargar PDF</a>
+    <span>Formato A5 horizontal · sin márgenes</span>
+  </div>
+
+  <article class="card" aria-label="Tarjeta regalo del viaje a Japón para Leire">
+    <div class="sun" aria-hidden="true"></div>
+    <span class="petal p1" aria-hidden="true"></span>
+    <span class="petal p2" aria-hidden="true"></span>
+    <span class="petal p3" aria-hidden="true"></span>
+
+    <svg class="wave" viewBox="0 0 800 160" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,110 C110,70 190,135 300,105 C410,75 500,140 610,108 C700,82 760,104 800,96 L800,160 L0,160 Z" fill="#b5122e" opacity=".07"/>
+      <path d="M0,130 C120,98 205,150 330,125 C455,100 545,152 655,128 C725,112 770,124 800,118 L800,160 L0,160 Z" fill="#b08a4f" opacity=".12"/>
+    </svg>
+
+    <div class="content">
+      <div class="eyebrow">Una sorpresa muy especial</div>
+
+      <div class="to">
+        Para
+        <strong>Leire</strong>
+      </div>
+
+      <div class="title">
+        <span class="small">Feliz cumpleaños</span>
+        <span class="big">Japón</span>
+      </div>
+
+      <div class="dates">
+        <span class="line" aria-hidden="true"></span>
+        <span class="date">17 — 31 de marzo de 2027</span>
+      </div>
+
+      <div class="cities" aria-label="Ciudades del viaje">
+        <span>Kioto</span><span class="dot" aria-hidden="true"></span>
+        <span>Osaka</span><span class="dot" aria-hidden="true"></span>
+        <span>Takayama</span><span class="dot" aria-hidden="true"></span>
+        <span>Tokio</span>
+      </div>
+
+      <div class="foot">
+        <div class="message">
+          <p class="note">Prepara la maleta. Ahora toca empezar a organizarlo con tu ayuda. Y aún queda otra sorpresa más por desvelar...</p>
+          <p class="note-jp" lang="ja">荷造りを始めてね。これからは、あなたも一緒に計画を立てよう。そして、まだまだ秘密のサプライズがあるよ…</p>
+        </div>
+        <div class="seal">
+          <div class="jp">日本</div>
+          <div class="jp-love" lang="ja">大好きだよ</div>
+          <div class="en">Te queremos mucho</div>
+          <div class="sign">Papá y mamá</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</body>
+</html>
