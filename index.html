@@ -464,7 +464,42 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
           <tfoot><tr><td>Total</td><td class="num" id="trYen"></td><td class="num" id="trEur"></td></tr></tfoot>
         </table>
       </div>
-      <p class="muted">Cambio editable. Alternativa más barata Takayama → Tokio: bus directo a Shinjuku (~5 h 30, ~7.500 ¥). Sin Japan Rail Pass: billetes sueltos + SUICA.</p>
+      <p class="muted">Cambio editable. Precios orientativos a nov 2026. Las opciones de abajo se recalculan con el mismo cambio. Alternativa más barata Takayama → Tokio: bus directo a Shinjuku (~5 h 30, ~7.500 ¥). Sin Japan Rail Pass: billetes sueltos + SUICA.</p>
+    </div>
+
+    <div class="card">
+      <h2>Opciones y reservas <span class="sec">· sin decidir</span></h2>
+      <p class="muted">Precios por persona y para los 4 viajeros. Euros al cambio actual.</p>
+      <div id="trOptions"></div>
+      <div class="bstats" style="margin-top:14px">
+        <div><span>Sin pase</span><b id="trNoPass">—</b><small>por persona</small></div>
+        <div><span>Con pase Kansai-Hiroshima</span><b id="trWithPass">—</b><small>por persona</small></div>
+        <div><span>Ahorro 4 pax</span><b id="trSaving">—</b><small>con el pase</small></div>
+      </div>
+      <p class="muted">No incluye pases urbanos opcionales. Alternativa Takayama → Tokio en bus directo: <b>7.500 ¥ / 44,1 €</b> por persona (ahorra 9.940 ¥ / 58,5 € frente al tren).</p>
+    </div>
+
+    <div class="card">
+      <h2>Pases y tarjetas <span class="sec">· comparativa</span></h2>
+      <p class="muted">Ninguna opción está decidida: son alternativas para comparar antes de comprar.</p>
+      <div id="trPasses"></div>
+      <p class="muted">Pases urbanos opcionales: Osaka Amazing 1 día, Kioto Subway &amp; Bus 1 día y Tokyo Subway 72 h. No están sumados al total porque sustituyen parte del transporte local.</p>
+    </div>
+
+    <div class="card">
+      <h2>Dónde reservar</h2>
+      <ul class="notes">
+        <li><b>Pase Kansai-Hiroshima</b> · <a href="https://www.westjr.co.jp/global/en/ticket/pass/kansai_hiroshima/" target="_blank" rel="noopener">JR West oficial</a>. Comprar con antelación y cambiar en KIX; reservar Haruka y Nozomi al activarlo.</li>
+        <li><b>Haruka (si no hay pase)</b> · <a href="https://www.westjr.co.jp/travel-information/en/tickets-passes/oneway/haruka/" target="_blank" rel="noopener">billete con descuento</a>. No se vende dentro de Japón.</li>
+        <li><b>Shinkansen Tokaido/Sanyo</b> · <a href="https://smart-ex.jp/en/" target="_blank" rel="noopener">SmartEX</a>. Osaka–Nagoya, Nagoya–Tokio y Osaka–Hiroshima.</li>
+        <li><b>Hida Nagoya–Takayama</b> · <a href="https://www.eki-net.com/" target="_blank" rel="noopener">Eki-net</a> o taquilla en Nagoya.</li>
+        <li><b>Bus Nohi</b> · <a href="https://www.nouhibus.co.jp/english/highwaybus/" target="_blank" rel="noopener">Nohi Bus</a> o <a href="https://japanbusonline.com/en/CourseSearch/11900040002" target="_blank" rel="noopener">Japan Bus Online</a>. 2.900 ¥/tramo; reserva obligatoria en algunas salidas.</li>
+        <li><b>Bus Fuji</b> · <a href="https://bus.fujikyu.co.jp/en/highway/fujisan/shinjuku-kawaguchiko/" target="_blank" rel="noopener">Fujikyu Bus</a> o <a href="https://www.fujiyamaconnect.jp/bus/inbound/" target="_blank" rel="noopener">Fujiyama Connect</a>. 2.000 ¥ online por sentido.</li>
+        <li><b>Skyliner Narita</b> · <a href="https://www.keisei.co.jp/keisei/tetudou/skyliner/us/" target="_blank" rel="noopener">Keisei</a>. 2.310 ¥ online; primera salida desde Ueno 05:20.</li>
+        <li><b>Tokyo Subway Ticket</b> · <a href="https://www.tokyometro.jp/lang_en/ticket/value/travel/" target="_blank" rel="noopener">Tokyo Metro</a>. 72 h por 2.000 ¥.</li>
+        <li><b>Osaka Amazing Pass</b> · <a href="https://osaka-amazing-pass.com/en/" target="_blank" rel="noopener">web oficial</a>. 1 día 3.500 ¥.</li>
+        <li><b>Suica/ICOCA</b> · Suica en Apple Wallet o ICOCA en KIX. Una tarjeta por persona; no es un pase con descuento.</li>
+      </ul>
     </div>
   </section>
 
@@ -670,13 +705,38 @@ const DAYS = [
 ];
 
 const TRANSPORT = [
-  { t:'KIX → Kioto (Haruka)', yen:3640 },
-  { t:'Osaka ↔ Hiroshima (excursión, Nozomi) + ferry Miyajima', yen:21000 },
+  { t:'KIX → Kioto (Haruka con descuento)', yen:2700 },
+  { t:'Kioto → Osaka (JR rapid)', yen:570 },
+  { t:'Osaka ↔ Hiroshima (Nozomi)', yen:21000 },
+  { t:'Ferry Miyajima (ida y vuelta)', yen:400 },
   { t:'Osaka → Takayama (Nozomi + Hida)', yen:12080 },
-  { t:'Takayama ↔ Shirakawa-go (bus Nohi)', yen:5200 },
+  { t:'Takayama ↔ Shirakawa-go (bus Nohi)', yen:5800 },
   { t:'Takayama → Tokio (Hida + Nozomi)', yen:17440 },
-  { t:'Bus al Fuji (ida y vuelta)', yen:4400 },
-  { t:'Metro y trenes locales + Narita', yen:8100 }
+  { t:'Bus al Fuji (ida y vuelta)', yen:4000 },
+  { t:'Skyliner + JR a Narita', yen:2510 },
+  { t:'Metro, buses y USJ', yen:6000 }
+];
+
+const TRANSPORT_OPTIONS = [
+  { t:'KIX → Kioto · Haruka', yen:2700, note:'Incluido en el pase Kansai-Hiroshima', url:'https://www.westjr.co.jp/travel-information/en/tickets-passes/oneway/haruka/' },
+  { t:'Kioto → Osaka · JR rapid', yen:570, note:'IC card', url:'' },
+  { t:'Osaka ↔ Hiroshima · Nozomi', yen:21000, note:'Ida y vuelta; reservar asientos', url:'https://smart-ex.jp/en/' },
+  { t:'Ferry Miyajima', yen:400, note:'Ida y vuelta; incluido en el pase', url:'' },
+  { t:'Osaka → Takayama · Nozomi + Hida', yen:12080, note:'SmartEX + Eki-net', url:'https://smart-ex.jp/en/' },
+  { t:'Takayama ↔ Shirakawa-go · bus Nohi', yen:5800, note:'Ida y vuelta; reserva recomendada', url:'https://japanbusonline.com/en/CourseSearch/11900040002' },
+  { t:'Takayama → Tokio · Hida + Nozomi', yen:17440, note:'Alternativa bus directo: 7.500 ¥', url:'https://smart-ex.jp/en/' },
+  { t:'Shinjuku ↔ Kawaguchiko · bus', yen:4000, note:'Ida y vuelta online', url:'https://www.fujiyamaconnect.jp/bus/inbound/' },
+  { t:'Otsuka → Narita · Skyliner + JR', yen:2510, note:'Skyliner 2.310 ¥ + JR ~200 ¥', url:'https://www.keisei.co.jp/keisei/tetudou/skyliner/us/' },
+  { t:'Metro, buses y USJ', yen:6000, note:'Estimación con IC card', url:'' }
+];
+
+const TRANSPORT_PASSES = [
+  { t:'Kansai-Hiroshima Area Pass · 5 días', yen:17000, note:'Haruka + Kioto–Osaka + Nozomi Hiroshima + ferry. Activar 18/03. No cubre Tokaido ni buses.', url:'https://www.westjr.co.jp/global/en/ticket/pass/kansai_hiroshima/' },
+  { t:'Japan Rail Pass · 7 días', yen:50000, note:'No incluye Nozomi; para esta ruta apenas ahorra y obliga a trenes más lentos.', url:'https://japanrailpass.net/en/' },
+  { t:'IC card Suica/ICOCA · saldo inicial', yen:2000, note:'500 ¥ de depósito + 1.500 ¥ de saldo. Una por persona; no da descuento.', url:'' },
+  { t:'Osaka Amazing Pass · 1 día', yen:3500, note:'Metro + castillo, Umeda Sky y Tsutenkaku. Opción para el día 22.', url:'https://osaka-amazing-pass.com/en/' },
+  { t:'Kioto Subway & Bus · 1 día', yen:1100, note:'Solo si ese día hacéis 3+ buses urbanos.', url:'' },
+  { t:'Tokyo Subway Ticket · 72 h', yen:2000, note:'Solo metro; no cubre JR Yamanote ni Yurikamome.', url:'https://www.tokyometro.jp/lang_en/ticket/value/travel/' }
 ];
 
 const BUDGET = [
@@ -836,6 +896,30 @@ function renderTransport() {
   }).join('');
   trYen.textContent = yenf(yenTotal);
   trEur.textContent = eur1(yenTotal / rt);
+  renderTransportOptions();
+}
+
+const trOptionsEl = document.getElementById('trOptions');
+const trPassesEl = document.getElementById('trPasses');
+const trNoPass = document.getElementById('trNoPass');
+const trWithPass = document.getElementById('trWithPass');
+const trSaving = document.getElementById('trSaving');
+
+function optionTable(items, rt) {
+  return '<div class="tablewrap"><table class="tbl"><thead><tr><th>Tramo / opción</th><th class="num">¥/persona</th><th class="num">€/persona</th><th class="num">¥ 4 pax</th><th class="num">€ 4 pax</th></tr></thead><tbody>' +
+    items.map(o => '<tr><td>' + o.t + (o.note ? '<br><span class="muted" style="font-size:.78rem">' + o.note + '</span>' : '') + (o.url ? ' <a href="' + o.url + '" target="_blank" rel="noopener">reservar</a>' : '') + '</td><td class="num">' + yenf(o.yen) + '</td><td class="num">' + eur1(o.yen / rt) + '</td><td class="num">' + yenf(o.yen * 4) + '</td><td class="num">' + eur1(o.yen * 4 / rt) + '</td></tr>').join('') +
+    '</tbody></table></div>';
+}
+
+function renderTransportOptions() {
+  const rt = currentRate();
+  trOptionsEl.innerHTML = optionTable(TRANSPORT_OPTIONS, rt);
+  trPassesEl.innerHTML = optionTable(TRANSPORT_PASSES, rt);
+  const base = TRANSPORT_OPTIONS.reduce((a, o) => a + o.yen, 0);
+  const withPass = base - 24670 + 17000;
+  trNoPass.textContent = yenf(base) + ' · ' + eur1(base / rt);
+  trWithPass.textContent = yenf(withPass) + ' · ' + eur1(withPass / rt);
+  trSaving.textContent = yenf((base - withPass) * 4) + ' · ' + eur1((base - withPass) * 4 / rt);
 }
 
 rateInputs.forEach(inp => {
