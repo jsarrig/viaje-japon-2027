@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f766e">
+<meta name="description" content="Itinerario interactivo del viaje a Japón: 17–31 de marzo de 2027, 4 viajeros. Kioto, Hiroshima, Osaka, Takayama y Tokio.">
+<meta property="og:title" content="Viaje a Japón · 17–31 marzo 2027">
+<meta property="og:description" content="Ruta, transportes, presupuesto y preparativos del viaje.">
+<meta property="og:type" content="website">
+<title>Viaje a Japón · 17–31 marzo 2027</title>
+<style>
+:root{
+  --bg:#f4f7f8; --surface:#ffffff; --text:#16212b; --muted:#5c6c7a;
+  --line:#e0e7ec; --accent:#0f766e; --accent-2:#b45309;
+  --shadow:0 8px 28px rgba(15,23,42,.07); --radius:16px;
+  --ok:#15803d; --warn:#b45309;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0d151b; --surface:#141f27; --text:#e7eef4; --muted:#9db0bf;
+    --line:#243541; --accent:#2dd4bf; --accent-2:#fbbf24;
+    --shadow:0 10px 32px rgba(0,0,0,.35); --ok:#4ade80; --warn:#fbbf24;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--text); line-height:1.55;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{width:min(1100px,100% - 32px); margin-inline:auto}
+.hero{
+  background:radial-gradient(1200px 400px at 10% -10%,rgba(45,212,191,.30),transparent 60%),
+             linear-gradient(135deg,#0f766e 0%,#115e59 55%,#134e4a 100%);
+  color:#f0fdfa; padding:34px 0 22px;
+}
+.hero-inner{display:grid; gap:16px}
+.hero-head{display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap}
+.kicker{margin:0 0 4px; text-transform:uppercase; letter-spacing:.14em; font-size:.72rem; opacity:.85}
+h1{margin:0; font-size:clamp(1.9rem,4.5vw,3rem); line-height:1.08; letter-spacing:-.02em}
+.sub{margin:6px 0 0; opacity:.92}
+.count{
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
+  border-radius:14px; padding:10px 14px; min-width:170px; text-align:center;
+  backdrop-filter:blur(6px);
+}
+.count b{display:block; font-size:1.5rem; line-height:1.1}
+.count span{font-size:.78rem; opacity:.85}
+.hero-meta{display:flex; gap:8px; flex-wrap:wrap}
+.pill{
+  display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:.8rem;
+  padding:6px 11px; border-radius:999px; border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.10); color:inherit;
+}
+.pill.warn{border-color:rgba(251,191,36,.55); background:rgba(251,191,36,.15)}
+button.pill{cursor:pointer}
+button.pill:hover{background:rgba(255,255,255,.2)}
+nav.tabs{
+  position:sticky; top:0; z-index:30; display:flex; gap:6px; overflow-x:auto;
+  padding:10px 0; background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+  scrollbar-width:none;
+}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto; font:inherit; font-weight:600; font-size:.9rem; cursor:pointer;
+  border:1px solid transparent; background:transparent; color:var(--muted);
+  padding:8px 14px; border-radius:999px;
+}
+.tab:hover{color:var(--text); background:var(--surface)}
+.tab.active{color:#fff; background:var(--accent); border-color:var(--accent)}
+main{padding:24px 0 8px}
+.panel{display:none; animation:fade .18s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:20px; box-shadow:var(--shadow);
+}
+.card + .card{margin-top:16px}
+h2{font-size:1.05rem; margin:0 0 12px; letter-spacing:-.01em}
+h2 .sec{color:var(--muted); font-weight:500}
+.grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); margin-bottom:16px}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin-bottom:16px}
+.stat{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:14px 16px; box-shadow:var(--shadow);
+}
+.stat b{display:block; font-size:1.6rem; line-height:1.1; color:var(--accent)}
+.stat span{font-size:.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em}
+.flight{display:grid; gap:2px; padding:12px 0; border-bottom:1px dashed var(--line)}
+.flight:last-of-type{border-bottom:0}
+.flight .tag{font-size:.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em}
+.flight strong{font-size:1.05rem}
+.flight span{font-size:.88rem; color:var(--muted)}
+.muted{color:var(--muted); font-size:.88rem}
+.bookings{list-style:none; padding:0; margin:0}
+.bookings li{display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px dashed var(--line)}
+.bookings li:last-child{border-bottom:0}
+.bookings .ok{color:var(--ok); font-weight:800}
+.bookings small{display:block; color:var(--muted); font-size:.8rem}
+.route{list-style:none; padding:0; margin:0; display:grid; gap:8px}
+.route li{display:flex; justify-content:space-between; gap:12px; padding:9px 12px; background:color-mix(in srgb,var(--accent) 7%,transparent); border-radius:10px}
+.route span{color:var(--muted); font-size:.85rem; text-align:right}
+.next{padding-left:18px; margin:0 0 10px}
+.next li{margin-bottom:6px}
+.controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px}
+.spacer{flex:1}
+.chips{display:flex; gap:6px; flex-wrap:wrap}
+.chip{
+  font:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+  border:1px solid var(--line); background:var(--surface); color:var(--muted);
+  padding:6px 12px; border-radius:999px;
+}
+.chip:hover{color:var(--text)}
+.chip.active{background:var(--accent); border-color:var(--accent); color:#fff}
+.btn{
+  font:inherit; font-size:.85rem; font-weight:600; cursor:pointer;
+  border:1px solid var(--line); background:var(--surface); color:var(--text);
+  padding:7px 13px; border-radius:10px;
+}
+.btn:hover{border-color:var(--accent); color:var(--accent)}
+.btn.ghost{background:transparent}
+.btn.small{font-size:.8rem; padding:6px 11px}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.seg button{
+  font:inherit; font-size:.82rem; font-weight:600; cursor:pointer; border:0;
+  background:var(--surface); color:var(--muted); padding:7px 12px;
+}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button.active{background:var(--accent); color:#fff}
+.field{font-size:.85rem; color:var(--muted); display:inline-flex; align-items:center; gap:8px}
+.field input{
+  width:76px; font:inherit; font-size:.9rem; padding:6px 8px; border-radius:8px;
+  border:1px solid var(--line); background:var(--surface); color:var(--text);
+}
+.days{display:grid; gap:12px}
+.day{
+  background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--c,var(--accent));
+  border-radius:14px; box-shadow:var(--shadow); overflow:hidden;
+}
+.day[hidden]{display:none}
+.day summary{
+  list-style:none; cursor:pointer; display:flex; gap:12px; align-items:center;
+  padding:14px 16px; user-select:none;
+}
+.day summary::-webkit-details-marker{display:none}
+.day summary:hover{background:color-mix(in srgb,var(--c,var(--accent)) 6%,transparent)}
+.daynum{
+  flex:0 0 auto; width:42px; height:42px; border-radius:12px;
+  display:grid; place-items:center; font-weight:800; font-size:.9rem;
+  color:#fff; background:var(--c,var(--accent));
+}
+.dayhead{display:grid; flex:1; min-width:0}
+.dayhead b{font-size:.95rem}
+.dayhead span{color:var(--muted); font-size:.86rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.city{
+  flex:0 0 auto; font-size:.72rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--c,var(--accent));
+  border:1px solid color-mix(in srgb,var(--c,var(--accent)) 45%,transparent);
+  padding:3px 8px; border-radius:999px;
+}
+.daybody{padding:0 16px 14px 70px}
+.daybody ul{margin:0 0 10px; padding-left:18px}
+.daybody li{margin-bottom:5px}
+.day.hot{border-left-width:7px}
+.dayfoot{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:.84rem; color:var(--muted); padding-top:10px; border-top:1px dashed var(--line)}
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:12px}
+.tbl{width:100%; border-collapse:collapse; min-width:460px}
+.tbl th{
+  text-align:left; font-size:.76rem; text-transform:uppercase; letter-spacing:.07em;
+  color:var(--muted); font-weight:700; padding:10px 12px; border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--accent) 5%,transparent);
+}
+.tbl td{padding:10px 12px; border-bottom:1px solid var(--line); font-size:.9rem}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl .num{text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums}
+.tbl tfoot td{padding:12px; font-weight:800; border-top:2px solid var(--line)}
+.tbl .sub{color:var(--muted); font-weight:400; font-size:.8rem}
+.progress{height:10px; background:var(--line); border-radius:999px; overflow:hidden; margin:4px 0 6px}
+.progress > div{height:100%; width:0; background:linear-gradient(90deg,var(--accent),#22c55e); transition:width .25s ease}
+.check{list-style:none; padding:0; margin:10px 0 14px}
+.check li{border-bottom:1px solid var(--line)}
+.check label{display:flex; gap:10px; align-items:flex-start; padding:10px 2px; cursor:pointer}
+.check input{margin-top:3px; width:18px; height:18px; accent-color:var(--accent); flex:0 0 auto}
+.check input:checked + span{color:var(--muted); text-decoration:line-through}
+.check span{font-size:.92rem}
+.notes{padding-left:18px; margin:0}
+.notes li{margin-bottom:8px}
+.toast{
+  position:fixed; left:50%; bottom:24px; transform:translate(-50%,20px);
+  background:#111827; color:#fff; padding:10px 16px; border-radius:999px;
+  font-size:.85rem; opacity:0; pointer-events:none; transition:.25s; z-index:60;
+}
+.toast.show{opacity:1; transform:translate(-50%,0)}
+footer{padding:26px 0 40px; color:var(--muted); font-size:.8rem}
+footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap; align-items:center}
+@media (max-width:640px){
+  .hero{padding-top:26px}
+  .dayhead span{white-space:normal}
+  .daybody{padding-left:18px}
+  .city{display:none}
+}
+@media print{
+  nav.tabs,.controls,.btn,.pill,footer .btn{display:none!important}
+  .panel{display:block!important; page-break-before:always}
+  .panel:first-child{page-break-before:auto}
+  .hero{background:#fff; color:#000; padding:0 0 10px}
+  .hero-meta,.count{display:none}
+  .card,.stat,.day{box-shadow:none; break-inside:avoid}
+  body{background:#fff; color:#000}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-head">
+      <div>
+        <p class="kicker">17–31 de marzo de 2027 · 13 noches</p>
+        <h1>Viaje a Japón</h1>
+        <p class="sub">Kioto · Hiroshima · Osaka · Takayama · Tokio</p>
+      </div>
+      <div class="count" id="countdown" aria-live="polite"><b>—</b><span>calculando</span></div>
+    </div>
+    <div class="hero-meta">
+      <span class="pill">4 viajeros</span>
+      <span class="pill">2 habitaciones · twin + doble</span>
+      <span class="pill warn">Vuelos sin confirmar</span>
+      <button class="pill" id="share" type="button">Copiar enlace</button>
+      <button class="pill" id="printBtn" type="button">Imprimir / PDF</button>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs wrap" aria-label="Secciones del viaje">
+  <button class="tab active" data-tab="resumen" type="button">Resumen</button>
+  <button class="tab" data-tab="dias" type="button">Día a día</button>
+  <button class="tab" data-tab="transporte" type="button">Transporte</button>
+  <button class="tab" data-tab="presupuesto" type="button">Presupuesto</button>
+  <button class="tab" data-tab="preparativos" type="button">Preparativos</button>
+</nav>
+
+<main class="wrap">
+
+  <section class="panel active" id="resumen" aria-label="Resumen">
+    <div class="stats">
+      <div class="stat"><b>15</b><span>días</span></div>
+      <div class="stat"><b>13</b><span>noches</span></div>
+      <div class="stat"><b>4</b><span>viajeros</span></div>
+      <div class="stat"><b>2</b><span>habitaciones</span></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Vuelos <span class="sec">· opción sin confirmar</span></h2>
+        <div class="flight">
+          <span class="tag">Ida · miércoles 17 de marzo</span>
+          <strong>Valencia 09:55 → Osaka KIX 11:20 (+1)</strong>
+          <span>1 escala en Ámsterdam · 17 h 25 · Transavia + KLM</span>
+        </div>
+        <div class="flight">
+          <span class="tag">Vuelta · miércoles 31 de marzo</span>
+          <strong>Tokio Narita 08:55 → Valencia 19:40</strong>
+          <span>1 escala en Ámsterdam · 17 h 45 · KLM</span>
+        </div>
+        <p class="muted">KLM opera Narita (NRT), no Haneda. La vuelta sale temprano: estar en Narita hacia las 06:55.</p>
+      </div>
+
+      <div class="card">
+        <h2>Reservas confirmadas</h2>
+        <ul class="bookings">
+          <li>
+            <span class="ok" aria-hidden="true">✓</span>
+            <div><b>ALA Hotel Kyoto</b><small>18–20 mar · 2 noches · 2 habitaciones</small></div>
+            <b>378 €</b>
+          </li>
+          <li>
+            <span class="ok" aria-hidden="true">✓</span>
+            <div><b>APA Hotel &amp; Resort Osaka Namba Ekimae Tower</b><small>20–24 mar · 4 noches · 2 habitaciones</small></div>
+            <b>663 €</b>
+          </li>
+        </ul>
+        <p class="muted">Total reservado: <b>1.041 €</b>. Quedan 7 noches por reservar (Takayama y Tokio).</p>
+      </div>
+
+      <div class="card">
+        <h2>Ruta</h2>
+        <ul class="route">
+          <li><b>Kioto</b><span>18–20 mar · 2 noches</span></li>
+          <li><b>Osaka</b><span>20–24 mar · Hiroshima el 21 · USJ el 23</span></li>
+          <li><b>Takayama</b><span>24–26 mar · Shirakawa-go</span></li>
+          <li><b>Tokio</b><span>26–31 mar · excursión al Fuji</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Siguientes pasos</h2>
+        <ul class="next">
+          <li>Confirmar y comprar los vuelos de los 4.</li>
+          <li>Reservar los hoteles de Takayama (24–26) y Tokio (26–31).</li>
+          <li>Comprar USJ + Express Pass 4 para el 23 de marzo.</li>
+          <li>Shinkansen, bus Nohi y bus al Fuji.</li>
+        </ul>
+        <p class="muted">Lista completa en <a href="#preparativos" data-goto="preparativos">Preparativos</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="dias" aria-label="Día a día">
+    <div class="controls">
+      <div class="chips" id="dayFilters" role="group" aria-label="Filtrar por ciudad"></div>
+      <div class="spacer"></div>
+      <button class="btn small" id="toggleAll" type="button">Contraer todo</button>
+    </div>
+    <div class="days" id="days"></div>
+  </section>
+
+  <section class="panel" id="transporte" aria-label="Transporte">
+    <div class="card">
+      <h2>Transporte <span class="sec">· por persona</span></h2>
+      <div class="controls">
+        <label class="field" for="rate">Cambio: 1 € = <input id="rate" type="number" min="100" max="300" step="1" value="170" inputmode="numeric"> ¥</label>
+        <div class="seg" id="trMode" role="group" aria-label="Modo de importe">
+          <button type="button" data-mode="pax" class="active">Por persona</button>
+          <button type="button" data-mode="total">Total 4</button>
+        </div>
+      </div>
+      <div class="tablewrap">
+        <table class="tbl">
+          <thead><tr><th>Tramo</th><th class="num">Yenes</th><th class="num">Euros</th></tr></thead>
+          <tbody id="trBody"></tbody>
+          <tfoot><tr><td>Total</td><td class="num" id="trYen"></td><td class="num" id="trEur"></td></tr></tfoot>
+        </table>
+      </div>
+      <p class="muted">Cambio editable. Alternativa más barata Takayama → Tokio: bus directo a Shinjuku (~5 h 30, ~7.500 ¥). Sin Japan Rail Pass: billetes sueltos + SUICA.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="presupuesto" aria-label="Presupuesto">
+    <div class="card">
+      <h2>Presupuesto <span class="sec">· 4 personas</span></h2>
+      <div class="controls">
+        <div class="seg" id="bMode" role="group" aria-label="Modo de importe">
+          <button type="button" data-mode="total" class="active">Total 4</button>
+          <button type="button" data-mode="pax">Por persona</button>
+        </div>
+      </div>
+      <div class="tablewrap">
+        <table class="tbl">
+          <thead><tr><th>Concepto</th><th class="num">Mínimo</th><th class="num">Máximo</th></tr></thead>
+          <tbody id="bBody"></tbody>
+          <tfoot><tr><td>Total estimado</td><td class="num" id="bMin"></td><td class="num" id="bMax"></td></tr></tfoot>
+        </table>
+      </div>
+      <p class="muted">Estimación a noviembre de 2026, sujeta a tarifas dinámicas. Ya reservado: <b>1.041 €</b> (2 hoteles).</p>
+    </div>
+  </section>
+
+  <section class="panel" id="preparativos" aria-label="Preparativos">
+    <div class="card">
+      <h2>Checklist</h2>
+      <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+      <p class="muted" id="progressText">—</p>
+      <ul class="check" id="checklist"></ul>
+      <button class="btn small ghost" id="resetCheck" type="button">Reiniciar</button>
+      <p class="muted">Las casillas se guardan solo en este navegador; no se comparten con el resto del grupo.</p>
+    </div>
+
+    <div class="card">
+      <h2>Notas útiles</h2>
+      <ul class="notes">
+        <li><b>20–22 de marzo</b> es puente en Japón: Hiroshima y Miyajima estarán llenos el domingo 21 y Osaka el lunes 22. USJ cae en martes laborable.</li>
+        <li><b>Hiroshima</b> se hace como excursión desde Osaka: salida ~07:00, 2 h 15 por sentido y vuelta ~21:30, sin maletas.</li>
+        <li><b>Sakura</b>: se llega antes de la floración plena en Kioto y Osaka; en Tokio (28–30) puede haber primeros brotes.</li>
+        <li><b>Maletas</b>: enviar la grande con takkyubin Osaka → Tokio o dejarla en el hotel y viajar ligero a Takayama.</li>
+        <li><b>Vuelo de vuelta</b>: sale de Narita a las 08:55; salir del hotel ~05:45, taxi nocturno o dormir cerca del aeropuerto la última noche.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Página informativa · precios estimados a nov 2026 · hoteles confirmados y vuelos sin confirmar.</span>
+    <span>Última actualización: 15/11/2026</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const CITY = {
+  vuelo:    { label: 'Vuelo',     color: '#64748b' },
+  kioto:    { label: 'Kioto',     color: '#7c3aed' },
+  osaka:    { label: 'Osaka',     color: '#dc2626' },
+  hiroshima:{ label: 'Hiroshima', color: '#0284c7' },
+  takayama: { label: 'Takayama',  color: '#16a34a' },
+  tokio:    { label: 'Tokio',     color: '#d97706' }
+};
+
+const DAYS = [
+  { n:1, date:'Mié 17 mar', city:'vuelo', title:'Valencia → Osaka', sleep:'En vuelo',
+    map:'Kansai International Airport',
+    items:['VLC 09:55 → KIX 11:20 (+1)','1 escala en Ámsterdam · 17 h 25','Transavia + KLM · opción sin confirmar','eSIM, seguro y SUICA preparados'] },
+  { n:2, date:'Jue 18 mar', city:'kioto', title:'Llegada y traslado a Kioto', sleep:'Kioto',
+    map:'Nishiki Market Kyoto',
+    items:['Llegada KIX 11:20','Haruka a Kioto (~13:30)','Check-in: ALA Hotel Kyoto (18–20 mar) ✓','Nishiki Market y paseo por Gion'] },
+  { n:3, date:'Vie 19 mar', city:'kioto', title:'Kioto: Fushimi Inari e Higashiyama', sleep:'Kioto',
+    map:'Fushimi Inari Taisha Kyoto',
+    items:['Fushimi Inari muy temprano','Kiyomizu-dera','Sannenzaka, Ninenzaka e Higashiyama','Santuario Yasaka','Gion y Pontochō'] },
+  { n:4, date:'Sáb 20 mar', city:'osaka', title:'Kioto → Osaka', sleep:'Osaka',
+    map:'Arashiyama Kyoto',
+    items:['Mañana en Kioto: Arashiyama o Kinkaku-ji','JR a Osaka (30 min)','Check-in: APA Hotel & Resort Osaka Namba Ekimae Tower ✓','Tarde en Dotonbori y cena en Namba'] },
+  { n:5, date:'Dom 21 mar', city:'hiroshima', title:'Excursión a Hiroshima y Miyajima', sleep:'Osaka',
+    map:'Miyajima Hiroshima',
+    items:['07:00 Shin-Osaka → Hiroshima (Nozomi 2 h 15)','Ferry a Miyajima: torii flotante e Itsukushima','Parque Memorial de la Paz y castillo','Okonomiyaki en Hagakure','Vuelta a Osaka (~21:30), sin maletas'] },
+  { n:6, date:'Lun 22 mar', city:'osaka', title:'Osaka: castillo y Shinsekai', sleep:'Osaka',
+    map:'Osaka Castle',
+    items:['Castillo de Osaka','Santuario Osaka Tenmangū','Tsūtenkaku y Shinsekai','Umeda Sky Building al atardecer','Lunes festivo: reservar entradas'] },
+  { n:7, date:'Mar 23 mar', city:'osaka', title:'Universal Studios Japan', sleep:'Osaka', hot:true,
+    map:'Universal Studios Japan',
+    items:['Día completo en USJ + Express Pass 4','Acceso garantizado a Super Nintendo World','Salir temprano y comer dentro del parque','Osaka ✓ · martes 23'] },
+  { n:8, date:'Mié 24 mar', city:'takayama', title:'Osaka → Takayama', sleep:'Takayama',
+    map:'Takayama Sanmachi Suji',
+    items:['Nozomi Osaka → Nagoya (50 min)','Hida Nagoya → Takayama (2 h 20)','Sanmachi Suji','Cena de Hida beef'] },
+  { n:9, date:'Jue 25 mar', city:'takayama', title:'Shirakawa-go', sleep:'Takayama',
+    map:'Shirakawa-go Gifu',
+    items:['Bus Nohi 08:00 → Shirakawa-go (50 min)','Aldea gasshō-zukuri y mirador Shiroyama','Vuelta a Takayama por la tarde'] },
+  { n:10, date:'Vie 26 mar', city:'tokio', title:'Takayama → Tokio', sleep:'Tokio',
+    map:'Ginza Tokyo',
+    items:['Hida a Nagoya + Nozomi a Tokio (~5 h)','Alternativa: bus directo a Shinjuku (~5 h 30)','Check-in: Park Hotel Tokyo (26–30 mar)','Ginza y Tsukiji Hongan-ji'] },
+  { n:11, date:'Sáb 27 mar', city:'tokio', title:'Asakusa, Akihabara y Shibuya', sleep:'Tokio',
+    map:'Senso-ji Tokyo',
+    items:['Sensō-ji (Asakusa)','Akihabara: 2k540, Ameyoko y Don Quijote','Cruce de Shibuya','Bar Martha'] },
+  { n:12, date:'Dom 28 mar', city:'tokio', title:'Excursión al Fuji', sleep:'Tokio',
+    map:'Lake Kawaguchi',
+    items:['Bus Shinjuku → Kawaguchiko','Lagos Kawaguchi y Saiko','Oshino Hakkai','Parque Ōishi'] },
+  { n:13, date:'Lun 29 mar', city:'tokio', title:'teamLab, Odaiba y Shinjuku', sleep:'Tokio',
+    map:'teamLab Planets Tokyo',
+    items:['teamLab Planets','Odaiba y Rainbow Bridge','Shinjuku Gyoen y mirador del Ayuntamiento (gratis)'] },
+  { n:14, date:'Mar 30 mar', city:'tokio', title:'Harajuku, Shibuya y sakura', sleep:'Tokio',
+    map:'Meiji Jingu Tokyo',
+    items:['Meiji Jingū y Yoyogi','Harajuku','Chidorigafuchi (sakura)','Compras y día libre'] },
+  { n:15, date:'Mié 31 mar', city:'vuelo', title:'Tokio → Valencia', sleep:'—',
+    map:'Narita Airport',
+    items:['Hotel → Narita (NRT)','08:55 NRT → VLC 19:40','1 escala en Ámsterdam · 17 h 45','Estar en Narita ~06:55: salir ~05:45 o dormir cerca'] }
+];
+
+const TRANSPORT = [
+  { t:'KIX → Kioto (Haruka)', yen:3640 },
+  { t:'Osaka ↔ Hiroshima (excursión, Nozomi) + ferry Miyajima', yen:21000 },
+  { t:'Osaka → Takayama (Nozomi + Hida)', yen:12080 },
+  { t:'Takayama ↔ Shirakawa-go (bus Nohi)', yen:5200 },
+  { t:'Takayama → Tokio (Hida + Nozomi)', yen:17440 },
+  { t:'Bus al Fuji (ida y vuelta)', yen:4400 },
+  { t:'Metro y trenes locales + Narita', yen:8100 }
+];
+
+const BUDGET = [
+  { c:'Vuelos KLM/Transavia (4)', min:3400, max:4200 },
+  { c:'Hoteles 13 noches × 2 hab.', min:4000, max:4800 },
+  { c:'Transporte', min:1900, max:1900 },
+  { c:'USJ + Express Pass 4', min:730, max:730 },
+  { c:'Entradas y extras', min:250, max:250 },
+  { c:'Comida', min:1900, max:2400 }
+];
+
+const CHECKLIST = [
+  { id:'vuelos', t:'Confirmar y comprar los vuelos (opción Transavia/KLM)' },
+  { id:'takayama', t:'Reservar hotel de Takayama (24–26 mar)' },
+  { id:'tokio', t:'Reservar hotel de Tokio (26–31 mar)' },
+  { id:'usj', t:'Comprar USJ + Express Pass 4 para el 23 de marzo' },
+  { id:'shinkansen', t:'Shinkansen: Osaka↔Hiroshima, Osaka→Nagoya, Nagoya→Takayama, Osaka→Tokio' },
+  { id:'nohi', t:'Reservar bus Nohi Takayama–Shirakawa-go' },
+  { id:'fuji', t:'Reservar bus Shinjuku–Kawaguchiko' },
+  { id:'esim', t:'eSIM Holafly' },
+  { id:'seguro', t:'Seguro Heymondo' },
+  { id:'suica', t:'Añadir SUICA al iPhone de cada uno' },
+  { id:'yenes', t:'Cambiar yenes y avisar al banco' },
+  { id:'klm17', t:'Verificar que el vuelo del 17 sale y llega a KIX como está previsto' }
+];
+
+const nf0 = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0 });
+const nf1 = new Intl.NumberFormat('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const eur1 = v => nf1.format(v) + ' €';
+
+/* Tabs */
+const tabs = Array.from(document.querySelectorAll('.tab'));
+const panels = Array.from(document.querySelectorAll('.panel'));
+function showTab(id, push) {
+  const tab = tabs.find(t => t.dataset.tab === id);
+  if (!tab) return;
+  tabs.forEach(t => t.classList.toggle('active', t === tab));
+  panels.forEach(p => p.classList.toggle('active', p.id === id));
+  if (push !== false && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+tabs.forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+document.querySelectorAll('[data-goto]').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); showTab(a.dataset.goto); });
+});
+const initial = location.hash.replace('#', '');
+if (tabs.some(t => t.dataset.tab === initial)) showTab(initial);
+
+/* Countdown */
+(function countdown() {
+  const box = document.getElementById('countdown');
+  const target = Date.UTC(2027, 2, 17, 8, 55); // 09:55 CET
+  const diff = target - Date.now();
+  if (diff <= 0) {
+    box.innerHTML = '<b>¡Buen viaje!</b><span>el viaje ya ha empezado</span>';
+    return;
+  }
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  box.innerHTML = '<b>' + days + '</b><span>días ' + hours + ' h para salir</span>';
+})();
+
+/* Days */
+const daysEl = document.getElementById('days');
+const filtersEl = document.getElementById('dayFilters');
+const order = ['all','kioto','osaka','hiroshima','takayama','tokio','vuelo'];
+const filterNames = { all:'Todos', kioto:'Kioto', osaka:'Osaka', hiroshima:'Hiroshima', takayama:'Takayama', tokio:'Tokio', vuelo:'Vuelo' };
+
+function renderFilters() {
+  filtersEl.innerHTML = order.map(k =>
+    '<button type="button" class="chip' + (k === 'all' ? ' active' : '') + '" data-filter="' + k + '">' + filterNames[k] + '</button>'
+  ).join('');
+  filtersEl.querySelectorAll('.chip').forEach(b => {
+    b.addEventListener('click', () => {
+      filtersEl.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x === b));
+      filterDays(b.dataset.filter);
+    });
+  });
+}
+
+function renderDays() {
+  daysEl.innerHTML = DAYS.map(d => {
+    const c = CITY[d.city];
+    const items = d.items.map(i => '<li>' + i + '</li>').join('');
+    return '<article class="day' + (d.hot ? ' hot' : '') + '" data-city="' + d.city + '" style="--c:' + c.color + '">' +
+      '<details open>' +
+        '<summary>' +
+          '<span class="daynum">D' + d.n + '</span>' +
+          '<span class="dayhead"><b>' + d.date + ' · ' + d.title + '</b><span>' + d.items[0] + '</span></span>' +
+          '<span class="city">' + c.label + '</span>' +
+        '</summary>' +
+        '<div class="daybody">' +
+          '<ul>' + items + '</ul>' +
+          '<div class="dayfoot"><span>Duerme: <b>' + d.sleep + '</b></span>' +
+          '<a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.map) + '" target="_blank" rel="noopener">Mapa del día ↗</a></div>' +
+        '</div>' +
+      '</details>' +
+    '</article>';
+  }).join('');
+}
+
+function filterDays(city) {
+  daysEl.querySelectorAll('.day').forEach(el => {
+    el.hidden = city !== 'all' && el.dataset.city !== city;
+  });
+}
+
+renderFilters();
+renderDays();
+
+const toggleAll = document.getElementById('toggleAll');
+toggleAll.addEventListener('click', () => {
+  const all = Array.from(daysEl.querySelectorAll('details'));
+  const anyClosed = all.some(d => !d.open);
+  all.forEach(d => d.open = anyClosed);
+  toggleAll.textContent = anyClosed ? 'Contraer todo' : 'Expandir todo';
+});
+
+/* Transport */
+const trBody = document.getElementById('trBody');
+const trYen = document.getElementById('trYen');
+const trEur = document.getElementById('trEur');
+const rateInput = document.getElementById('rate');
+const trModeEl = document.getElementById('trMode');
+let trMode = 'pax';
+
+function renderTransport() {
+  const rate = Math.max(1, Number(rateInput.value) || 170);
+  const mult = trMode === 'total' ? 4 : 1;
+  let yenTotal = 0;
+  trBody.innerHTML = TRANSPORT.map(r => {
+    const yen = r.yen * mult;
+    yenTotal += yen;
+    return '<tr><td>' + r.t + '</td><td class="num">' + nf0.format(yen) + ' ¥</td><td class="num">' + eur1(yen / rate) + '</td></tr>';
+  }).join('');
+  trYen.textContent = nf0.format(yenTotal) + ' ¥';
+  trEur.textContent = eur1(yenTotal / rate);
+}
+
+rateInput.addEventListener('input', renderTransport);
+trModeEl.querySelectorAll('button').forEach(b => {
+  b.addEventListener('click', () => {
+    trMode = b.dataset.mode;
+    trModeEl.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+    renderTransport();
+  });
+});
+renderTransport();
+
+/* Budget */
+const bBody = document.getElementById('bBody');
+const bMin = document.getElementById('bMin');
+const bMax = document.getElementById('bMax');
+const bModeEl = document.getElementById('bMode');
+let bMode = 'total';
+
+function renderBudget() {
+  const div = bMode === 'pax' ? 4 : 1;
+  let minT = 0, maxT = 0;
+  bBody.innerHTML = BUDGET.map(r => {
+    const min = r.min / div, max = r.max / div;
+    minT += min; maxT += max;
+    return '<tr><td>' + r.c + '</td><td class="num">' + eur1(min) + '</td><td class="num">' + eur1(max) + '</td></tr>';
+  }).join('');
+  bMin.textContent = eur1(minT);
+  bMax.textContent = eur1(maxT);
+}
+
+bModeEl.querySelectorAll('button').forEach(b => {
+  b.addEventListener('click', () => {
+    bMode = b.dataset.mode;
+    bModeEl.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+    renderBudget();
+  });
+});
+renderBudget();
+
+/* Checklist */
+const STORAGE = 'viaje-japon-2027-check';
+const checklistEl = document.getElementById('checklist');
+const bar = document.getElementById('bar');
+const progressText = document.getElementById('progressText');
+
+function loadCheck() {
+  try { return JSON.parse(localStorage.getItem(STORAGE) || '{}'); } catch (e) { return {}; }
+}
+function saveCheck(state) {
+  try { localStorage.setItem(STORAGE, JSON.stringify(state)); } catch (e) {}
+}
+function renderCheck() {
+  const state = loadCheck();
+  checklistEl.innerHTML = CHECKLIST.map(item =>
+    '<li><label><input type="checkbox" data-id="' + item.id + '"' + (state[item.id] ? ' checked' : '') + '><span>' + item.t + '</span></label></li>'
+  ).join('');
+  checklistEl.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const s = loadCheck();
+      s[inp.dataset.id] = inp.checked;
+      saveCheck(s);
+      updateProgress();
+    });
+  });
+  updateProgress();
+}
+function updateProgress() {
+  const state = loadCheck();
+  const done = CHECKLIST.filter(i => state[i.id]).length;
+  const pct = Math.round(done / CHECKLIST.length * 100);
+  bar.style.width = pct + '%';
+  progressText.textContent = done + ' de ' + CHECKLIST.length + ' completado (' + pct + '%)';
+}
+renderCheck();
+
+document.getElementById('resetCheck').addEventListener('click', () => {
+  if (!confirm('¿Desmarcar todas las tareas?')) return;
+  saveCheck({});
+  renderCheck();
+});
+
+/* Share / print / toast */
+const toastEl = document.getElementById('toast');
+let toastTimer;
+function toast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+}
+document.getElementById('share').addEventListener('click', async () => {
+  const url = location.href;
+  try {
+    await navigator.clipboard.writeText(url);
+    toast('Enlace copiado');
+  } catch (e) {
+    prompt('Copia el enlace:', url);
+  }
+});
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+</script>
+</body>
+</html>
