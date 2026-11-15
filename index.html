@@ -28,7 +28,7 @@ html{scroll-behavior:smooth}
 body{
   margin:0; background:var(--bg); color:var(--text); line-height:1.55;
   font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  -webkit-font-smoothing:antialiased;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
 a{color:var(--accent); text-decoration:none}
 a:hover{text-decoration:underline}
@@ -489,12 +489,16 @@ const CHECKLIST = [
   { id:'klm17', t:'Verificar que el vuelo del 17 sale y llega a KIX como está previsto' }
 ];
 
-const nf0 = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0 });
-const nf1 = new Intl.NumberFormat('es-ES', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-const nfYen = new Intl.NumberFormat('en-US');
-const eur0 = v => nf0.format(Math.round(v)) + ' €';
-const eur1 = v => nf1.format(v) + ' €';
-const yenf = v => nfYen.format(v).replace(/,/g, '.') + ' ¥';
+function fmtNum(v, decimals) {
+  const s = Number(v).toFixed(decimals);
+  const neg = s.charAt(0) === '-';
+  const parts = (neg ? s.slice(1) : s).split('.');
+  const grouped = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return (neg ? '-' : '') + grouped + (parts[1] ? ',' + parts[1] : '');
+}
+const eur0 = v => fmtNum(Math.round(v), 0) + ' €';
+const eur1 = v => fmtNum(v, 1) + ' €';
+const yenf = v => fmtNum(v, 0) + ' ¥';
 
 /* Tabs */
 const tabs = Array.from(document.querySelectorAll('.tab'));
