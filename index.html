@@ -146,6 +146,12 @@ h2 .sec{color:var(--muted); font-weight:500}
 .bookings li{display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px dashed var(--line)}
 .bookings li > div{flex:1; min-width:0}
 .bookings li > b:last-child{white-space:nowrap; font-variant-numeric:tabular-nums}
+.maplink{display:inline-flex; align-items:center; vertical-align:-2px; margin-left:4px; color:var(--accent); opacity:.85}
+.maplink:hover{opacity:1}
+.pin{width:14px; height:14px; fill:currentColor}
+.bfast{display:inline-block; margin-top:3px; font-size:.7rem; font-weight:700; padding:1px 7px; border-radius:999px}
+.bfast.yes{color:var(--ok); background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.bfast.no{color:var(--muted); background:color-mix(in srgb,var(--muted) 12%,transparent)}
 .bookings li:last-child{border-bottom:0}
 .bookings .ok{color:var(--ok); font-weight:800}
 .bookings small{display:block; color:var(--muted); font-size:.8rem}
@@ -365,16 +371,21 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         <ul class="bookings">
           <li>
             <span class="ok" aria-hidden="true">✓</span>
-            <div><b>ALA Hotel Kyoto</b><small>18–20 mar · 2 noches · 2 habitaciones</small></div>
+            <div><b>ALA Hotel Kyoto <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=ALA%20Hotel%20Kyoto" target="_blank" rel="noopener" aria-label="Mapa de ALA Hotel Kyoto"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>18–20 mar · 2 noches · 2 habitaciones</small><span class="bfast no">Desayuno no incluido</span></div>
             <b>378 €</b>
           </li>
           <li>
             <span class="ok" aria-hidden="true">✓</span>
-            <div><b>APA Hotel &amp; Resort Osaka Namba Ekimae Tower</b><small>20–24 mar · 4 noches · 2 habitaciones</small></div>
+            <div><b>APA Hotel &amp; Resort Osaka Namba Ekimae Tower <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=APA%20Hotel%20%26%20Resort%20Osaka%20Namba%20Ekimae%20Tower" target="_blank" rel="noopener" aria-label="Mapa de APA Hotel Osaka Namba Ekimae Tower"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>20–24 mar · 4 noches · 2 habitaciones</small><span class="bfast no">Desayuno no incluido</span></div>
             <b>663 €</b>
           </li>
+          <li>
+            <span class="ok" aria-hidden="true">✓</span>
+            <div><b>Spa Hotel Alpina Hida Takayama <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Spa%20Hotel%20Alpina%20Hida%20Takayama" target="_blank" rel="noopener" aria-label="Mapa de Spa Hotel Alpina Hida Takayama"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>24–26 mar · 2 noches · 2 habitaciones</small><span class="bfast yes">Desayuno incluido</span></div>
+            <b>359,31 €</b>
+          </li>
         </ul>
-        <p class="muted">Total reservado: <b>1.041 €</b>. Quedan 7 noches por reservar (Takayama y Tokio).</p>
+        <p class="muted">Total reservado: <b>1.400,31 €</b>. Quedan 5 noches por reservar (Tokio).</p>
       </div>
 
       <div class="card">
@@ -391,7 +402,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         <h2>Siguientes pasos</h2>
         <ul class="next">
           <li>Confirmar y comprar los vuelos de los 4.</li>
-          <li>Reservar los hoteles de Takayama (24–26) y Tokio (26–31).</li>
+          <li>Reservar el hotel de Tokio (26–31) y preguntar si incluye desayuno.</li>
           <li>Comprar USJ + Express Pass 4 para el 23 de marzo.</li>
           <li>Shinkansen, bus Nohi y bus al Fuji.</li>
         </ul>
@@ -467,6 +478,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         <li><b>Hiroshima</b> se hace como excursión desde Osaka: salida ~07:00, 2 h 15 por sentido y vuelta ~21:30, sin maletas.</li>
         <li><b>Sakura</b>: se llega antes de la floración plena en Kioto y Osaka; en Tokio (28–30) puede haber primeros brotes.</li>
         <li><b>Maletas</b>: enviar la grande con takkyubin Osaka → Tokio o dejarla en el hotel y viajar ligero a Takayama.</li>
+        <li><b>Desayuno</b>: incluido solo en Takayama; Kioto y Osaka sin desayuno. Preguntar por el de Tokio al reservar.</li>
         <li><b>Vuelo de vuelta</b>: sale de Narita a las 08:55; salir del hotel ~05:45, taxi nocturno o dormir cerca del aeropuerto la última noche.</li>
       </ul>
     </div>
@@ -499,43 +511,124 @@ const DAYS = [
     items:['VLC 09:55 → AMS 12:25 · Transavia (2 h 30)','Espera 2 h 10 en Ámsterdam','AMS 14:35 → KIX 11:20 (+1) · KLM KL867 (12 h 45)','eSIM, seguro y SUICA preparados'] },
   { n:2, date:'Jue 18 mar', city:'kioto', title:'Llegada y traslado a Kioto', sleep:'Kioto',
     map:'Nishiki Market Kyoto',
-    items:['Llegada KIX 11:20','Haruka a Kioto (~13:30)','Check-in: ALA Hotel Kyoto (18–20 mar) ✓','Nishiki Market y paseo por Gion'] },
+    items:[
+      {t:'Llegada KIX 11:20'},
+      {t:'Haruka a Kioto (~13:30)'},
+      {t:'Check-in: ALA Hotel Kyoto (18–20 mar) ✓', q:'ALA Hotel Kyoto'},
+      {t:'Nishiki Market', q:'Nishiki Market, Kyoto'},
+      {t:'Paseo por Gion', q:'Gion, Kyoto'}
+    ] },
   { n:3, date:'Vie 19 mar', city:'kioto', title:'Kioto: Fushimi Inari e Higashiyama', sleep:'Kioto',
     map:'Fushimi Inari Taisha Kyoto',
-    items:['Fushimi Inari muy temprano','Kiyomizu-dera','Sannenzaka, Ninenzaka e Higashiyama','Santuario Yasaka','Gion y Pontochō'] },
+    items:[
+      {t:'Fushimi Inari muy temprano', q:'Fushimi Inari Taisha, Kyoto'},
+      {t:'Kiyomizu-dera', q:'Kiyomizu-dera, Kyoto'},
+      {t:'Sannenzaka, Ninenzaka e Higashiyama', q:'Sannenzaka Ninenzaka, Kyoto'},
+      {t:'Santuario Yasaka', q:'Yasaka Shrine, Kyoto'},
+      {t:'Gion y Pontochō', q:'Pontocho, Kyoto'}
+    ] },
   { n:4, date:'Sáb 20 mar', city:'osaka', title:'Kioto → Osaka', sleep:'Osaka',
     map:'Arashiyama Kyoto',
-    items:['Mañana en Kioto: Arashiyama o Kinkaku-ji','JR a Osaka (30 min)','Check-in: APA Hotel & Resort Osaka Namba Ekimae Tower ✓','Tarde en Dotonbori y cena en Namba'] },
+    items:[
+      {t:'Mañana en Kioto: Arashiyama', q:'Arashiyama Bamboo Grove, Kyoto'},
+      {t:'Alternativa: Kinkaku-ji', q:'Kinkaku-ji, Kyoto'},
+      {t:'JR a Osaka (30 min)'},
+      {t:'Check-in: APA Hotel & Resort Osaka Namba Ekimae Tower ✓', q:'APA Hotel & Resort Osaka Namba Ekimae Tower'},
+      {t:'Tarde en Dotonbori', q:'Dotonbori, Osaka'},
+      {t:'Cena en Namba', q:'Namba, Osaka'}
+    ] },
   { n:5, date:'Dom 21 mar', city:'hiroshima', title:'Excursión a Hiroshima y Miyajima', sleep:'Osaka',
     map:'Miyajima Hiroshima',
-    items:['07:00 Shin-Osaka → Hiroshima (Nozomi 2 h 15)','Ferry a Miyajima: torii flotante e Itsukushima','Parque Memorial de la Paz y castillo','Okonomiyaki en Hagakure','Vuelta a Osaka (~21:30), sin maletas'] },
+    items:[
+      {t:'07:00 Shin-Osaka → Hiroshima (Nozomi 2 h 15)'},
+      {t:'Ferry a Miyajima: torii flotante', q:'Miyajima, Hiroshima'},
+      {t:'Santuario Itsukushima', q:'Itsukushima Shrine, Miyajima'},
+      {t:'Parque Memorial de la Paz', q:'Hiroshima Peace Memorial Park'},
+      {t:'Castillo de Hiroshima', q:'Hiroshima Castle'},
+      {t:'Okonomiyaki en Hagakure', q:'Hagakure Okonomiyaki Hiroshima'},
+      {t:'Vuelta a Osaka (~21:30), sin maletas'}
+    ] },
   { n:6, date:'Lun 22 mar', city:'osaka', title:'Osaka: castillo y Shinsekai', sleep:'Osaka',
     map:'Osaka Castle',
-    items:['Castillo de Osaka','Santuario Osaka Tenmangū','Tsūtenkaku y Shinsekai','Umeda Sky Building al atardecer','Lunes festivo: reservar entradas'] },
+    items:[
+      {t:'Castillo de Osaka', q:'Osaka Castle'},
+      {t:'Santuario Osaka Tenmangū', q:'Osaka Tenmangu'},
+      {t:'Tsūtenkaku', q:'Tsutenkaku, Osaka'},
+      {t:'Barrio Shinsekai', q:'Shinsekai, Osaka'},
+      {t:'Umeda Sky Building al atardecer', q:'Umeda Sky Building, Osaka'},
+      {t:'Lunes festivo: reservar entradas'}
+    ] },
   { n:7, date:'Mar 23 mar', city:'osaka', title:'Universal Studios Japan', sleep:'Osaka', hot:true,
     map:'Universal Studios Japan',
-    items:['Día completo en USJ + Express Pass 4','Acceso garantizado a Super Nintendo World','Salir temprano y comer dentro del parque','Osaka ✓ · martes 23'] },
+    items:[
+      {t:'Día completo en USJ + Express Pass 4', q:'Universal Studios Japan'},
+      {t:'Acceso garantizado a Super Nintendo World'},
+      {t:'Salir temprano y comer dentro del parque'},
+      {t:'Osaka ✓ · martes 23'}
+    ] },
   { n:8, date:'Mié 24 mar', city:'takayama', title:'Osaka → Takayama', sleep:'Takayama',
     map:'Takayama Sanmachi Suji',
-    items:['Nozomi Osaka → Nagoya (50 min)','Hida Nagoya → Takayama (2 h 20)','Sanmachi Suji','Cena de Hida beef'] },
+    items:[
+      {t:'Nozomi Osaka → Nagoya (50 min)'},
+      {t:'Hida Nagoya → Takayama (2 h 20)'},
+      {t:'Sanmachi Suji', q:'Sanmachi Suji, Takayama'},
+      {t:'Check-in: Spa Hotel Alpina Hida Takayama', q:'Spa Hotel Alpina Hida Takayama'},
+      {t:'Cena de Hida beef'}
+    ] },
   { n:9, date:'Jue 25 mar', city:'takayama', title:'Shirakawa-go', sleep:'Takayama',
     map:'Shirakawa-go Gifu',
-    items:['Bus Nohi 08:00 → Shirakawa-go (50 min)','Aldea gasshō-zukuri y mirador Shiroyama','Vuelta a Takayama por la tarde'] },
+    items:[
+      {t:'Bus Nohi 08:00 → Shirakawa-go (50 min)'},
+      {t:'Aldea gasshō-zukuri', q:'Shirakawa-go, Gifu'},
+      {t:'Mirador Shiroyama', q:'Shiroyama Viewpoint, Shirakawa-go'},
+      {t:'Vuelta a Takayama por la tarde'}
+    ] },
   { n:10, date:'Vie 26 mar', city:'tokio', title:'Takayama → Tokio', sleep:'Tokio',
     map:'Ginza Tokyo',
-    items:['Hida a Nagoya + Nozomi a Tokio (~5 h)','Alternativa: bus directo a Shinjuku (~5 h 30)','Check-in: Park Hotel Tokyo (26–30 mar)','Ginza y Tsukiji Hongan-ji'] },
+    items:[
+      {t:'Hida a Nagoya + Nozomi a Tokio (~5 h)'},
+      {t:'Alternativa: bus directo a Shinjuku (~5 h 30)'},
+      {t:'Check-in: Park Hotel Tokyo (26–30 mar)', q:'Park Hotel Tokyo'},
+      {t:'Ginza', q:'Ginza, Tokyo'},
+      {t:'Tsukiji Hongan-ji', q:'Tsukiji Hongan-ji, Tokyo'}
+    ] },
   { n:11, date:'Sáb 27 mar', city:'tokio', title:'Asakusa, Akihabara y Shibuya', sleep:'Tokio',
     map:'Senso-ji Tokyo',
-    items:['Sensō-ji (Asakusa)','Akihabara: 2k540, Ameyoko y Don Quijote','Cruce de Shibuya','Bar Martha'] },
+    items:[
+      {t:'Sensō-ji (Asakusa)', q:'Senso-ji, Tokyo'},
+      {t:'2k540 Aki-Oka Artisan', q:'2k540 Aki-Oka Artisan, Tokyo'},
+      {t:'Ameyoko', q:'Ameyoko, Tokyo'},
+      {t:'Don Quijote Akihabara', q:'Don Quijote Akihabara'},
+      {t:'Cruce de Shibuya', q:'Shibuya Crossing, Tokyo'},
+      {t:'Bar Martha', q:'Bar Martha, Tokyo'}
+    ] },
   { n:12, date:'Dom 28 mar', city:'tokio', title:'Excursión al Fuji', sleep:'Tokio',
     map:'Lake Kawaguchi',
-    items:['Bus Shinjuku → Kawaguchiko','Lagos Kawaguchi y Saiko','Oshino Hakkai','Parque Ōishi'] },
+    items:[
+      {t:'Bus Shinjuku → Kawaguchiko'},
+      {t:'Lago Kawaguchi', q:'Lake Kawaguchi'},
+      {t:'Lago Saiko', q:'Lake Saiko, Yamanashi'},
+      {t:'Oshino Hakkai', q:'Oshino Hakkai'},
+      {t:'Parque Ōishi', q:'Oishi Park, Lake Kawaguchi'}
+    ] },
   { n:13, date:'Lun 29 mar', city:'tokio', title:'teamLab, Odaiba y Shinjuku', sleep:'Tokio',
     map:'teamLab Planets Tokyo',
-    items:['teamLab Planets','Odaiba y Rainbow Bridge','Shinjuku Gyoen y mirador del Ayuntamiento (gratis)'] },
+    items:[
+      {t:'teamLab Planets', q:'teamLab Planets Tokyo'},
+      {t:'Odaiba', q:'Odaiba, Tokyo'},
+      {t:'Rainbow Bridge', q:'Rainbow Bridge, Tokyo'},
+      {t:'Shinjuku Gyoen', q:'Shinjuku Gyoen, Tokyo'},
+      {t:'Mirador del Ayuntamiento (gratis)', q:'Tokyo Metropolitan Government Building'}
+    ] },
   { n:14, date:'Mar 30 mar', city:'tokio', title:'Harajuku, Shibuya y sakura', sleep:'Tokio',
     map:'Meiji Jingu Tokyo',
-    items:['Meiji Jingū y Yoyogi','Harajuku','Chidorigafuchi (sakura)','Compras y día libre'] },
+    items:[
+      {t:'Meiji Jingū', q:'Meiji Jingu, Tokyo'},
+      {t:'Parque Yoyogi', q:'Yoyogi Park, Tokyo'},
+      {t:'Harajuku', q:'Takeshita Street, Harajuku'},
+      {t:'Chidorigafuchi (sakura)', q:'Chidorigafuchi, Tokyo'},
+      {t:'Compras y día libre'}
+    ] },
   { n:15, date:'Mié 31 mar', city:'vuelo', title:'Tokio → Valencia', sleep:'—',
     map:'Narita Airport',
     items:['Hotel → Narita (NRT)','NRT 08:55 → AMS 15:45 · KLM (13 h 50)','Espera 1 h 35 en Ámsterdam','AMS 17:20 → VLC 19:40 · KLM/Transavia (2 h 20)','Estar en Narita ~06:55: salir ~05:45 o dormir cerca'] }
@@ -562,8 +655,7 @@ const BUDGET = [
 
 const CHECKLIST = [
   { id:'vuelos', t:'Confirmar y comprar los vuelos (opción Transavia/KLM)' },
-  { id:'takayama', t:'Reservar hotel de Takayama (24–26 mar)' },
-  { id:'tokio', t:'Reservar hotel de Tokio (26–31 mar)' },
+  { id:'tokio', t:'Reservar hotel de Tokio (26–31 mar) y preguntar si incluye desayuno' },
   { id:'usj', t:'Comprar USJ + Express Pass 4 para el 23 de marzo' },
   { id:'shinkansen', t:'Shinkansen: Osaka↔Hiroshima, Osaka→Nagoya, Nagoya→Takayama, Osaka→Tokio' },
   { id:'nohi', t:'Reservar bus Nohi Takayama–Shirakawa-go' },
@@ -642,7 +734,14 @@ function renderDays() {
     const sub = d.sleep === 'En vuelo' ? 'Salida 09:55 · llegada 11:20 (+1)'
       : d.sleep === '—' ? 'Vuelo de vuelta · 08:55'
       : 'Duerme: ' + d.sleep;
-    const items = d.items.map(i => '<li>' + i + '</li>').join('');
+    const items = d.items.map(i => {
+      const t = typeof i === 'string' ? i : i.t;
+      const q = typeof i === 'string' ? null : i.q;
+      const pin = q
+        ? ' <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q) + '" target="_blank" rel="noopener" aria-label="Ver en Google Maps: ' + t.replace(/"/g, '&quot;') + '"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a>'
+        : '';
+      return '<li>' + t + pin + '</li>';
+    }).join('');
     return '<article class="day' + (d.hot ? ' hot' : '') + '" data-city="' + d.city + '" style="--c:' + c.color + '">' +
       '<details open>' +
         '<summary>' +
