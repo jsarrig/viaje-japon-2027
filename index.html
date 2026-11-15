@@ -401,12 +401,12 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
             <b>359,31 €</b>
           </li>
           <li>
-            <span class="pend" aria-hidden="true">⏳</span>
-            <div><b>Apartamento de Tokio <span class="bfast cancel">Provisional</span></b><small>26–31 mar · 5 noches · sin desayuno</small><span class="bfast no">Cargo tarjeta 21 feb</span><span class="bfast cancel">Cancelación 23 feb</span></div>
-            <b>772 €</b>
+            <span class="ok" aria-hidden="true">✓</span>
+            <div><b>APA Hotel Yamanote Otsuka Ekimae Tower <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=APA%20Hotel%20Yamanote%20Otsuka%20Ekimae%20Tower" target="_blank" rel="noopener" aria-label="Mapa de APA Hotel Yamanote Otsuka Ekimae Tower"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>26–31 mar · 5 noches · 2 habitaciones · pago en destino</small><span class="bfast no">Desayuno no incluido</span><span class="bfast cancel">Cancelación 24 mar</span></div>
+            <b>1.176 €</b>
           </li>
         </ul>
-        <p class="muted">Total confirmado: <b>1.400,31 €</b> + Tokio provisional <b>772 €</b> · hoteles pendientes de pago en destino y Tokio con cargo el 21 feb.</p>
+        <p class="muted">Total alojamiento: <b>2.576,31 €</b> (4 hoteles reservados) · desayuno solo en Takayama · todos con pago en destino.</p>
       </div>
 
       <div class="card">
@@ -423,7 +423,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         <h2>Siguientes pasos</h2>
         <ul class="next">
           <li>Confirmar y comprar los vuelos de los 4.</li>
-          <li>Confirmar el apartamento de Tokio (provisional) y su importe.</li>
+          <li>Cancelar el apartamento provisional de Tokio en Booking.</li>
           <li>Comprar USJ + Express Pass 4 para el 23 de marzo.</li>
           <li>Shinkansen, bus Nohi y bus al Fuji.</li>
         </ul>
@@ -483,7 +483,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
           <tbody id="bBody"></tbody>
         </table>
       </div>
-      <p class="muted">Los cambios se guardan en este navegador. Los 3 hoteles confirmados se pagan en destino; el apartamento de Tokio se cargará en tarjeta el 21 feb. Al confirmar una reserva nueva, indica también si está pagada o se paga en destino.</p>
+      <p class="muted">Los cambios se guardan en este navegador. Los 4 hoteles están reservados y se pagan en destino. Al confirmar una reserva nueva, indica también si está pagada o se paga en destino.</p>
     </div>
   </section>
 
@@ -504,10 +504,10 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         <li><b>Hiroshima</b> se hace como excursión desde Osaka: salida ~07:00, 2 h 15 por sentido y vuelta ~21:30, sin maletas.</li>
         <li><b>Sakura</b>: se llega antes de la floración plena en Kioto y Osaka; en Tokio (28–30) puede haber primeros brotes.</li>
         <li><b>Maletas</b>: enviar la grande con takkyubin Osaka → Tokio o dejarla en el hotel y viajar ligero a Takayama.</li>
-        <li><b>Desayuno</b>: incluido solo en Takayama; Kioto y Osaka sin desayuno. Preguntar por el de Tokio al reservar.</li>
-        <li><b>Pagos</b>: los 3 hoteles confirmados se pagan en destino; todavía no hay ningún pago hecho.</li>
-        <li><b>Cancelación</b>: Kioto hasta el 15 mar, Osaka hasta el 18 mar, Takayama hasta el 21 mar y Tokio hasta el 23 feb.</li>
-        <li><b>Tokio</b>: apartamento provisional; cargo en tarjeta el 21 feb y cancelación hasta el 23 feb. Aviso en el calendario el 20 feb.</li>
+        <li><b>Desayuno</b>: incluido solo en Takayama; Kioto, Osaka y Tokio sin desayuno.</li>
+        <li><b>Pagos</b>: los 4 hoteles se pagan en destino; todavía no hay ningún pago hecho.</li>
+        <li><b>Cancelación</b>: Kioto hasta el 15 mar, Osaka hasta el 18 mar, Takayama hasta el 21 mar y Tokio hasta el 24 mar.</li>
+        <li><b>Tokio</b>: APA Hotel Yamanote Otsuka Ekimae Tower, 26–31 mar; sin desayuno y cancelación hasta el 24 mar. Sustituye al apartamento provisional, que hay que cancelar en Booking.</li>
         <li><b>Vuelo de vuelta</b>: sale de Narita a las 08:55; salir del hotel ~05:45, taxi nocturno o dormir cerca del aeropuerto la última noche.</li>
       </ul>
     </div>
@@ -677,7 +677,7 @@ const BUDGET = [
   { id:'kioto', c:'Hotel Kioto · ALA Hotel Kyoto', note:'18–20 mar · 2 noches · 2 hab. · desayuno no incluido', eur:378, confirmed:true, paid:'destino' },
   { id:'osaka', c:'Hotel Osaka · APA Namba Ekimae Tower', note:'20–24 mar · 4 noches · 2 hab. · desayuno no incluido', eur:663, confirmed:true, paid:'destino' },
   { id:'takayama', c:'Hotel Takayama · Spa Hotel Alpina', note:'24–26 mar · 2 noches · 2 hab. · desayuno incluido', eur:359.31, confirmed:true, paid:'destino' },
-  { id:'tokio', c:'Apartamento Tokio (provisional)', note:'26–31 mar · provisional · sin desayuno · cargo 21 feb · cancela 23 feb', eur:772, confirmed:false, paid:'pending' },
+  { id:'tokio', c:'Hotel Tokio · APA Yamanote Otsuka Ekimae Tower', note:'26–31 mar · 5 noches · 2 hab. · sin desayuno · cancela 24 mar', eur:1176, confirmed:true, paid:'destino' },
   { id:'vuelos', c:'Vuelos KLM/Transavia (4)', note:'opción sin confirmar', eur:3800, confirmed:false, paid:'pending' },
   { id:'usj', c:'USJ + Express Pass 4 (4)', note:'23 mar · precio dinámico', eur:730, confirmed:false, paid:'pending' },
   { id:'transporte', c:'Transporte (trenes, buses, ferry)', note:'≈ 71.900 ¥/persona', eur:1900, confirmed:false, paid:'pending' },
@@ -687,7 +687,7 @@ const BUDGET = [
 
 const CHECKLIST = [
   { id:'vuelos', t:'Confirmar y comprar los vuelos (opción Transavia/KLM)' },
-  { id:'tokio', t:'Confirmar apartamento de Tokio (provisional) e importe · cargo 21/02 · cancela 23/02' },
+  { id:'tokio', t:'Cancelar el apartamento provisional de Tokio (Booking)' },
   { id:'usj', t:'Comprar USJ + Express Pass 4 para el 23 de marzo' },
   { id:'shinkansen', t:'Shinkansen: Osaka↔Hiroshima, Osaka→Nagoya, Nagoya→Takayama, Osaka→Tokio' },
   { id:'nohi', t:'Reservar bus Nohi Takayama–Shirakawa-go' },
