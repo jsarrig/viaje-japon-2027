@@ -232,6 +232,20 @@ h2 .sec{color:var(--muted); font-weight:500}
 .tbl tbody tr:last-child td{border-bottom:0}
 .tbl .num{text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums}
 .tbl tfoot td{padding:12px; font-weight:800; border-top:2px solid var(--line)}
+.bstats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:12px 0 16px}
+.bstats > div{background:color-mix(in srgb,var(--accent) 6%,transparent); border:1px solid var(--line); border-radius:12px; padding:10px 12px}
+.bstats span{display:block; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:700}
+.bstats b{font-size:1.12rem; font-variant-numeric:tabular-nums}
+.bstats small{display:block; color:var(--muted); font-size:.72rem}
+.money{width:110px; font:inherit; font-size:.88rem; text-align:right; padding:6px 8px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--text); font-variant-numeric:tabular-nums}
+.money:focus{outline:2px solid color-mix(in srgb,var(--accent) 50%,transparent); border-color:var(--accent)}
+.mini{font:inherit; font-size:.76rem; font-weight:700; padding:5px 7px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--text)}
+.mini.confirmed{color:var(--ok); border-color:color-mix(in srgb,var(--ok) 40%,transparent)}
+.mini.pending{color:var(--warn)}
+.budget{min-width:760px}
+.budget td small{display:block; color:var(--muted); font-size:.72rem; font-weight:400}
+.budget tr[data-paid="paid"]{background:color-mix(in srgb,var(--ok) 6%,transparent)}
+.budget tr[data-paid="destino"]{background:color-mix(in srgb,var(--warn) 5%,transparent)}
 .tbl .sub{color:var(--muted); font-weight:400; font-size:.8rem}
 .progress{height:10px; background:var(--line); border-radius:999px; overflow:hidden; margin:4px 0 6px}
 .progress > div{height:100%; width:0; background:linear-gradient(90deg,var(--accent),#22c55e); transition:width .25s ease}
@@ -371,21 +385,21 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         <ul class="bookings">
           <li>
             <span class="ok" aria-hidden="true">✓</span>
-            <div><b>ALA Hotel Kyoto <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=ALA%20Hotel%20Kyoto" target="_blank" rel="noopener" aria-label="Mapa de ALA Hotel Kyoto"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>18–20 mar · 2 noches · 2 habitaciones</small><span class="bfast no">Desayuno no incluido</span></div>
+            <div><b>ALA Hotel Kyoto <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=ALA%20Hotel%20Kyoto" target="_blank" rel="noopener" aria-label="Mapa de ALA Hotel Kyoto"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>18–20 mar · 2 noches · 2 habitaciones · pago en destino</small><span class="bfast no">Desayuno no incluido</span></div>
             <b>378 €</b>
           </li>
           <li>
             <span class="ok" aria-hidden="true">✓</span>
-            <div><b>APA Hotel &amp; Resort Osaka Namba Ekimae Tower <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=APA%20Hotel%20%26%20Resort%20Osaka%20Namba%20Ekimae%20Tower" target="_blank" rel="noopener" aria-label="Mapa de APA Hotel Osaka Namba Ekimae Tower"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>20–24 mar · 4 noches · 2 habitaciones</small><span class="bfast no">Desayuno no incluido</span></div>
+            <div><b>APA Hotel &amp; Resort Osaka Namba Ekimae Tower <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=APA%20Hotel%20%26%20Resort%20Osaka%20Namba%20Ekimae%20Tower" target="_blank" rel="noopener" aria-label="Mapa de APA Hotel Osaka Namba Ekimae Tower"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>20–24 mar · 4 noches · 2 habitaciones · pago en destino</small><span class="bfast no">Desayuno no incluido</span></div>
             <b>663 €</b>
           </li>
           <li>
             <span class="ok" aria-hidden="true">✓</span>
-            <div><b>Spa Hotel Alpina Hida Takayama <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Spa%20Hotel%20Alpina%20Hida%20Takayama" target="_blank" rel="noopener" aria-label="Mapa de Spa Hotel Alpina Hida Takayama"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>24–26 mar · 2 noches · 2 habitaciones</small><span class="bfast yes">Desayuno incluido</span></div>
+            <div><b>Spa Hotel Alpina Hida Takayama <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Spa%20Hotel%20Alpina%20Hida%20Takayama" target="_blank" rel="noopener" aria-label="Mapa de Spa Hotel Alpina Hida Takayama"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg></a></b><small>24–26 mar · 2 noches · 2 habitaciones · pago en destino</small><span class="bfast yes">Desayuno incluido</span></div>
             <b>359,31 €</b>
           </li>
         </ul>
-        <p class="muted">Total reservado: <b>1.400,31 €</b>. Quedan 5 noches por reservar (Tokio).</p>
+        <p class="muted">Total reservado: <b>1.400,31 €</b> · pendiente de pago en destino. Quedan 5 noches por reservar (Tokio).</p>
       </div>
 
       <div class="card">
@@ -424,7 +438,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
     <div class="card">
       <h2>Transporte <span class="sec" id="trSub">· por persona</span></h2>
       <div class="controls">
-        <label class="field" for="rate">Cambio: 1 € = <input id="rate" type="number" min="100" max="300" step="1" value="170" inputmode="numeric"> ¥</label>
+        <label class="field" for="rate">Cambio: 1 € = <input id="rate" class="rate-input" type="number" min="100" max="300" step="1" value="170" inputmode="numeric"> ¥</label>
         <div class="seg" id="trMode" role="group" aria-label="Modo de importe">
           <button type="button" data-mode="pax" class="active">Por persona</button>
           <button type="button" data-mode="total">Total 4</button>
@@ -443,21 +457,25 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
 
   <section class="panel" id="presupuesto" aria-label="Presupuesto">
     <div class="card">
-      <h2>Presupuesto <span class="sec" id="bSub">· 4 personas</span></h2>
+      <h2>Presupuesto <span class="sec">· editable</span></h2>
       <div class="controls">
-        <div class="seg" id="bMode" role="group" aria-label="Modo de importe">
-          <button type="button" data-mode="total" class="active">Total 4</button>
-          <button type="button" data-mode="pax">Por persona</button>
-        </div>
+        <label class="field" for="rate2">Cambio: 1 € = <input id="rate2" class="rate-input" type="number" min="100" max="300" step="1" value="170" inputmode="numeric"> ¥</label>
+        <span class="spacer"></span>
+        <span class="muted">Escribe el importe en € o en ¥: el otro se calcula solo. Los dos son editables.</span>
+      </div>
+      <div class="bstats">
+        <div><span>Total</span><b id="bTotal">—</b><small id="bTotalY">—</small></div>
+        <div><span>Confirmado</span><b id="bConfirmed">—</b><small id="bConfirmedY">—</small></div>
+        <div><span>Pagado</span><b id="bPaid">—</b><small id="bPaidY">—</small></div>
+        <div><span>Por pagar</span><b id="bDue">—</b><small id="bDueY">—</small></div>
       </div>
       <div class="tablewrap">
-        <table class="tbl">
-          <thead><tr><th>Concepto</th><th class="num">Mínimo</th><th class="num">Máximo</th></tr></thead>
+        <table class="tbl budget">
+          <thead><tr><th>Concepto</th><th>Estado</th><th class="num">Euros</th><th class="num">Yenes</th><th>Pago</th></tr></thead>
           <tbody id="bBody"></tbody>
-          <tfoot><tr><td>Total estimado</td><td class="num" id="bMin"></td><td class="num" id="bMax"></td></tr></tfoot>
         </table>
       </div>
-      <p class="muted">Estimación a noviembre de 2026, sujeta a tarifas dinámicas. Ya reservado: <b>1.041 €</b> (2 hoteles).</p>
+      <p class="muted">Los cambios se guardan en este navegador. Los 3 hoteles confirmados se pagan en destino. Al confirmar una reserva nueva, indica también si está pagada o se paga en destino.</p>
     </div>
   </section>
 
@@ -479,6 +497,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         <li><b>Sakura</b>: se llega antes de la floración plena en Kioto y Osaka; en Tokio (28–30) puede haber primeros brotes.</li>
         <li><b>Maletas</b>: enviar la grande con takkyubin Osaka → Tokio o dejarla en el hotel y viajar ligero a Takayama.</li>
         <li><b>Desayuno</b>: incluido solo en Takayama; Kioto y Osaka sin desayuno. Preguntar por el de Tokio al reservar.</li>
+        <li><b>Pagos</b>: los 3 hoteles confirmados se pagan en destino; todavía no hay ningún pago hecho.</li>
         <li><b>Vuelo de vuelta</b>: sale de Narita a las 08:55; salir del hotel ~05:45, taxi nocturno o dormir cerca del aeropuerto la última noche.</li>
       </ul>
     </div>
@@ -645,12 +664,15 @@ const TRANSPORT = [
 ];
 
 const BUDGET = [
-  { c:'Vuelos KLM/Transavia (4)', min:3400, max:4200 },
-  { c:'Hoteles 13 noches × 2 hab.', min:4000, max:4800 },
-  { c:'Transporte', min:1900, max:1900 },
-  { c:'USJ + Express Pass 4', min:730, max:730 },
-  { c:'Entradas y extras', min:250, max:250 },
-  { c:'Comida', min:1900, max:2400 }
+  { id:'kioto', c:'Hotel Kioto · ALA Hotel Kyoto', note:'18–20 mar · 2 noches · 2 hab. · desayuno no incluido', eur:378, confirmed:true, paid:'destino' },
+  { id:'osaka', c:'Hotel Osaka · APA Namba Ekimae Tower', note:'20–24 mar · 4 noches · 2 hab. · desayuno no incluido', eur:663, confirmed:true, paid:'destino' },
+  { id:'takayama', c:'Hotel Takayama · Spa Hotel Alpina', note:'24–26 mar · 2 noches · 2 hab. · desayuno incluido', eur:359.31, confirmed:true, paid:'destino' },
+  { id:'tokio', c:'Hotel Tokio (5 noches, 2 hab.)', note:'26–31 mar · por reservar', eur:1600, confirmed:false, paid:'pending' },
+  { id:'vuelos', c:'Vuelos KLM/Transavia (4)', note:'opción sin confirmar', eur:3800, confirmed:false, paid:'pending' },
+  { id:'usj', c:'USJ + Express Pass 4 (4)', note:'23 mar · precio dinámico', eur:730, confirmed:false, paid:'pending' },
+  { id:'transporte', c:'Transporte (trenes, buses, ferry)', note:'≈ 71.900 ¥/persona', eur:1900, confirmed:false, paid:'pending' },
+  { id:'entradas', c:'Entradas y extras', note:'templos, teamLab, etc.', eur:250, confirmed:false, paid:'pending' },
+  { id:'comida', c:'Comida (14 días)', note:'estimación', eur:2100, confirmed:false, paid:'pending' }
 ];
 
 const CHECKLIST = [
@@ -780,25 +802,34 @@ toggleAll.addEventListener('click', () => {
 const trBody = document.getElementById('trBody');
 const trYen = document.getElementById('trYen');
 const trEur = document.getElementById('trEur');
-const rateInput = document.getElementById('rate');
+const rateInputs = Array.from(document.querySelectorAll('.rate-input'));
+let rate = 170;
+function currentRate() { return Math.max(1, Number(String(rate).replace(',', '.')) || 170); }
 const trModeEl = document.getElementById('trMode');
 let trMode = 'pax';
 
 function renderTransport() {
-  const rate = Math.max(1, Number(rateInput.value) || 170);
+  const rt = currentRate();
   const mult = trMode === 'total' ? 4 : 1;
   document.getElementById('trSub').textContent = '· ' + (trMode === 'total' ? 'total 4' : 'por persona');
   let yenTotal = 0;
   trBody.innerHTML = TRANSPORT.map(r => {
     const yen = r.yen * mult;
     yenTotal += yen;
-    return '<tr><td>' + r.t + '</td><td class="num">' + yenf(yen) + '</td><td class="num">' + eur1(yen / rate) + '</td></tr>';
+    return '<tr><td>' + r.t + '</td><td class="num">' + yenf(yen) + '</td><td class="num">' + eur1(yen / rt) + '</td></tr>';
   }).join('');
   trYen.textContent = yenf(yenTotal);
-  trEur.textContent = eur1(yenTotal / rate);
+  trEur.textContent = eur1(yenTotal / rt);
 }
 
-rateInput.addEventListener('input', renderTransport);
+rateInputs.forEach(inp => {
+  inp.addEventListener('input', () => {
+    rate = inp.value;
+    rateInputs.forEach(other => { if (other !== inp) other.value = inp.value; });
+    renderTransport();
+    renderBudget();
+  });
+});
 trModeEl.querySelectorAll('button').forEach(b => {
   b.addEventListener('click', () => {
     trMode = b.dataset.mode;
@@ -809,32 +840,121 @@ trModeEl.querySelectorAll('button').forEach(b => {
 renderTransport();
 
 /* Budget */
+const BUDGET_STORAGE = 'viaje-japon-2027-budget';
 const bBody = document.getElementById('bBody');
-const bMin = document.getElementById('bMin');
-const bMax = document.getElementById('bMax');
-const bModeEl = document.getElementById('bMode');
-let bMode = 'total';
+const bTotal = document.getElementById('bTotal');
+const bTotalY = document.getElementById('bTotalY');
+const bConfirmed = document.getElementById('bConfirmed');
+const bConfirmedY = document.getElementById('bConfirmedY');
+const bPaid = document.getElementById('bPaid');
+const bPaidY = document.getElementById('bPaidY');
+const bDue = document.getElementById('bDue');
+const bDueY = document.getElementById('bDueY');
 
-function renderBudget() {
-  const div = bMode === 'pax' ? 4 : 1;
-  document.getElementById('bSub').textContent = '· ' + (bMode === 'pax' ? 'por persona' : '4 personas');
-  let minT = 0, maxT = 0;
-  bBody.innerHTML = BUDGET.map(r => {
-    const min = r.min / div, max = r.max / div;
-    minT += min; maxT += max;
-    return '<tr><td>' + r.c + '</td><td class="num">' + eur0(min) + '</td><td class="num">' + eur0(max) + '</td></tr>';
-  }).join('');
-  bMin.textContent = eur0(minT);
-  bMax.textContent = eur0(maxT);
+function loadBudget() {
+  try { return JSON.parse(localStorage.getItem(BUDGET_STORAGE) || '{}'); } catch (e) { return {}; }
+}
+function saveBudget(state) {
+  try { localStorage.setItem(BUDGET_STORAGE, JSON.stringify(state)); } catch (e) {}
+}
+let budgetState = loadBudget();
+
+function budgetVal(item) {
+  const s = budgetState[item.id] || {};
+  const v = s.eur !== undefined ? s.eur : item.eur;
+  return Number(v) || 0;
+}
+function isConfirmed(item) {
+  const s = budgetState[item.id] || {};
+  return s.confirmed !== undefined ? s.confirmed : item.confirmed;
+}
+function paidState(item) {
+  const s = budgetState[item.id] || {};
+  return s.paid !== undefined ? s.paid : item.paid;
+}
+function parseAmount(s) {
+  s = String(s).trim();
+  if (!s) return 0;
+  if (s.indexOf(',') > -1 && s.indexOf('.') > -1) s = s.replace(/\./g, '').replace(',', '.');
+  else if (s.indexOf(',') > -1) s = s.replace(',', '.');
+  else if (/\.\d{3}$/.test(s)) s = s.replace(/\./g, '');
+  const n = Number(s);
+  return Number.isFinite(n) ? n : 0;
+}
+function eurInput(v) {
+  return (Math.round(v * 100) / 100).toFixed(2).replace('.', ',');
 }
 
-bModeEl.querySelectorAll('button').forEach(b => {
-  b.addEventListener('click', () => {
-    bMode = b.dataset.mode;
-    bModeEl.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
-    renderBudget();
+function renderBudget() {
+  const rt = currentRate();
+  bBody.innerHTML = BUDGET.map(item => {
+    const eur = budgetVal(item);
+    const yen = Math.round(eur * rt);
+    const conf = isConfirmed(item);
+    const paid = paidState(item);
+    return `<tr data-paid="${paid}">
+      <td><b>${item.c}</b>${item.note ? `<small>${item.note}</small>` : ''}</td>
+      <td><select class="mini ${conf ? 'confirmed' : 'pending'}" data-id="${item.id}" data-field="confirmed"><option value="1"${conf ? ' selected' : ''}>Confirmado</option><option value="0"${conf ? '' : ' selected'}>Pendiente</option></select></td>
+      <td class="num"><input class="money" data-id="${item.id}" data-cur="eur" value="${eurInput(eur)}" inputmode="decimal" aria-label="Euros de ${item.c}"></td>
+      <td class="num"><input class="money" data-id="${item.id}" data-cur="yen" value="${yen}" inputmode="numeric" aria-label="Yenes de ${item.c}"></td>
+      <td><select class="mini ${paid === 'paid' ? 'confirmed' : paid === 'destino' ? 'pending' : ''}" data-id="${item.id}" data-field="paid"><option value="pending"${paid === 'pending' ? ' selected' : ''}>Pendiente</option><option value="destino"${paid === 'destino' ? ' selected' : ''}>En destino</option><option value="paid"${paid === 'paid' ? ' selected' : ''}>Pagado</option></select></td>
+    </tr>`;
+  }).join('');
+  bBody.querySelectorAll('input.money').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const id = inp.dataset.id;
+      const cur = inp.dataset.cur;
+      const val = parseAmount(inp.value);
+      budgetState[id] = budgetState[id] || {};
+      budgetState[id].eur = cur === 'eur' ? val : val / currentRate();
+      saveBudget(budgetState);
+      const row = inp.closest('tr');
+      const other = row.querySelector('input.money[data-cur="' + (cur === 'eur' ? 'yen' : 'eur') + '"]');
+      if (other) {
+        other.value = cur === 'eur' ? String(Math.round(val * currentRate())) : eurInput(val / currentRate());
+      }
+      updateBudgetTotals();
+    });
   });
-});
+  bBody.querySelectorAll('select.mini').forEach(sel => {
+    sel.addEventListener('change', () => {
+      const id = sel.dataset.id;
+      const field = sel.dataset.field;
+      budgetState[id] = budgetState[id] || {};
+      if (field === 'confirmed') {
+        budgetState[id].confirmed = sel.value === '1';
+        sel.className = 'mini ' + (sel.value === '1' ? 'confirmed' : 'pending');
+      } else {
+        budgetState[id].paid = sel.value;
+        sel.className = 'mini ' + (sel.value === 'paid' ? 'confirmed' : sel.value === 'destino' ? 'pending' : '');
+        sel.closest('tr').dataset.paid = sel.value;
+      }
+      saveBudget(budgetState);
+      updateBudgetTotals();
+    });
+  });
+  updateBudgetTotals();
+}
+
+function updateBudgetTotals() {
+  const rt = currentRate();
+  let total = 0, conf = 0, paid = 0;
+  BUDGET.forEach(item => {
+    const eur = budgetVal(item);
+    total += eur;
+    if (isConfirmed(item)) conf += eur;
+    if (paidState(item) === 'paid') paid += eur;
+  });
+  bTotal.textContent = eur0(total);
+  bTotalY.textContent = yenf(Math.round(total * rt));
+  bConfirmed.textContent = eur0(conf);
+  bConfirmedY.textContent = yenf(Math.round(conf * rt));
+  bPaid.textContent = eur0(paid);
+  bPaidY.textContent = yenf(Math.round(paid * rt));
+  bDue.textContent = eur0(total - paid);
+  bDueY.textContent = yenf(Math.round((total - paid) * rt));
+}
+
 renderBudget();
 
 /* Checklist */
