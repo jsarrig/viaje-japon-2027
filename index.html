@@ -282,6 +282,18 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
   .card,.stat,.day{box-shadow:none; break-inside:avoid}
   body{background:#fff; color:#000}
 }
+  /* Seguimiento de precios */
+  .chart{width:100%; height:auto; display:block; margin:.5rem 0 .2rem}
+  .chart .ax{font-size:11px; fill:var(--muted)}
+  .chart .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round}
+  .chart .ln.oj{stroke:var(--accent)}
+  .chart .ln.tokio{stroke:var(--accent-2)}
+  .chart .obj{stroke:var(--muted); stroke-width:1.2; stroke-dasharray:5 4; opacity:.7}
+  .chart .objtxt{font-size:11px; fill:var(--muted)}
+  .legend{display:flex; align-items:center; gap:.35rem; font-size:.82rem; color:var(--muted); margin:.1rem 0 .7rem; flex-wrap:wrap}
+  .legend .k{width:14px; height:3px; border-radius:2px; display:inline-block; margin-right:.2rem}
+  .legend i{margin-left:.7rem; font-style:normal}
+  .legend i:first-child{margin-left:0}
 </style>
 </head>
 <body>
@@ -422,17 +434,8 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
 
       <div class="card">
         <h2>Seguimiento de precios · vuelos</h2>
-        <p class="muted">Datos de Google Flights del <b>16/11/2026</b> · 4 pasajeros · Economy. Se actualiza a mano.</p>
-        <div class="tablewrap"><table class="tbl">
-          <thead><tr><th>Opción</th><th class="num">Vuelos</th><th class="num">+ Trenes</th><th class="num">Total</th></tr></thead>
-          <tbody>
-            <tr><td><b>Open-jaw</b> · KIX ida / NRT vuelta</td><td class="num">5.110 €</td><td class="num">—</td><td class="num"><b>5.110 €</b></td></tr>
-            <tr><td>Ida y vuelta a <b>Tokio</b> (NRT)</td><td class="num">4.906 €</td><td class="num">+330 €</td><td class="num">5.236 €</td></tr>
-          </tbody>
-        </table></div>
-        <p><b>El open-jaw gana por 126 €.</b> Tokio solo compensaría si bajara de <b>4.780 €</b> (el bucle obliga a Narita → Kioto, +14.040 ¥/persona).</p>
-        <p class="muted">Nivel de precio: <b>típico</b> (rango 4.250–7.400 €) · objetivo ≤ 4.200 € · esperando al <b>Black Friday (27/11/2026)</b>.<br>
-        <a href="https://www.google.com/travel/flights?hl=es&amp;gl=es&amp;curr=EUR&amp;tfs=CBwQAhoeEgoyMDI3LTAzLTE3agcIARIDVkxDcgcIARIDTlJUGh4SCjIwMjctMDMtMzFqBwgBEgNOUlRyBwgBEgNWTENAAUABQAFAAUgBcAGYAQE&amp;tfu=EgIIAQ" target="_blank" rel="noopener">Ver la ida y vuelta a Tokio en Google Flights</a></p>
+        <div id="precios"></div>
+        <noscript><p class="muted">Activa JavaScript para ver la gráfica de evolución.</p></noscript>
       </div>
 
       <div class="card">
@@ -1137,6 +1140,87 @@ document.getElementById('share').addEventListener('click', async () => {
   }
 });
 document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+/* Precios de vuelos · datos de precios.json (actualizado a diario por GitHub Actions) */
+const OBJETIVO_VUELOS = 4200;
+const eur = n => n == null ? '—' : Number(n).toLocaleString('es-ES') + ' €';
+const fechaCorta = iso => { const p = String(iso).split('-'); return p.length === 3 ? `${p[2]}/${p[1]}` : iso; };
+
+function svgPrecios(pts) {
+  const W = 660, H = 240, L = 56, R = 18, T = 18, B = 36;
+  const val = p => ({ oj: p.openjaw, tk: p.tokio == null ? null : p.tokio + (p.extra_trenes ?? 330) });
+  const vals = [OBJETIVO_VUELOS];
+  pts.forEach(p => { const v = val(p); if (v.oj != null) vals.push(v.oj); if (v.tk != null) vals.push(v.tk); });
+  let min = Math.min(...vals), max = Math.max(...vals);
+  const pad = (max - min) * 0.14 || 250;
+  min -= pad; max += pad;
+  const n = pts.length;
+  const X = i => n <= 1 ? L + (W - L - R) / 2 : L + i * (W - L - R) / (n - 1);
+  const Y = v => T + (max - v) * (H - T - B) / (max - min);
+  const line = key => pts.map((p, i) => { const v = val(p)[key]; return v == null ? null : [X(i), Y(v)]; })
+    .filter(Boolean).map((c, i) => (i ? 'L' : 'M') + c[0].toFixed(1) + ' ' + c[1].toFixed(1)).join(' ');
+  const dots = (key, color) => pts.map((p, i) => { const v = val(p)[key];
+    return v == null ? '' : `<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3.6" fill="${color}"/>`; }).join('');
+  const ticks = [min, (min + max) / 2, max].map(v =>
+    `<text x="${L - 8}" y="${(Y(v) + 4).toFixed(1)}" text-anchor="end" class="ax">${Math.round(v).toLocaleString('es-ES')}</text>`).join('');
+  const labels = pts.map((p, i) => (n <= 8 || i === 0 || i === n - 1)
+    ? `<text x="${X(i).toFixed(1)}" y="${H - 14}" text-anchor="middle" class="ax">${fechaCorta(p.fecha)}</text>` : '').join('');
+  const a = line('oj'), b = line('tk'), yObj = Y(OBJETIVO_VUELOS).toFixed(1);
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Evolución del precio de los vuelos">
+    ${ticks}
+    <line x1="${L}" y1="${yObj}" x2="${W - R}" y2="${yObj}" class="obj"/>
+    <text x="${W - R}" y="${(Number(yObj) - 6).toFixed(1)}" text-anchor="end" class="objtxt">objetivo ${OBJETIVO_VUELOS.toLocaleString('es-ES')} €</text>
+    ${b ? `<path d="${b}" class="ln tokio"/>` : ''}
+    ${a ? `<path d="${a}" class="ln oj"/>` : ''}
+    ${dots('tk', 'var(--accent-2)')}
+    ${dots('oj', 'var(--accent)')}
+    ${labels}
+  </svg>`;
+}
+
+async function renderPrecios() {
+  const box = document.getElementById('precios');
+  if (!box) return;
+  let d = [];
+  try {
+    const r = await fetch('precios.json', { cache: 'no-store' });
+    if (r.ok) d = await r.json();
+  } catch (e) { /* sin conexión o abierto como archivo local */ }
+  if (!Array.isArray(d) || !d.length) {
+    box.innerHTML = '<p class="muted">Sin datos todavía. El registro diario se activa en cuanto la clave de SerpAPI esté configurada en el repositorio.</p>';
+    return;
+  }
+  d.sort((x, y) => String(x.fecha).localeCompare(String(y.fecha)));
+  const last = d[d.length - 1];
+  const extra = last.extra_trenes ?? 330;
+  const oj = last.openjaw, tk = last.tokio, tkTotal = tk == null ? null : tk + extra;
+  let veredicto = 'Sin comparación disponible.';
+  if (oj != null && tkTotal != null) {
+    const neto = Math.round(oj - tkTotal);
+    veredicto = neto > 0
+      ? `<b>Tokio compensa:</b> ${eur(neto)} netos a favor (ya incluye los ${eur(extra)} de trenes).`
+      : `El <b>open-jaw gana por ${eur(-neto)}</b>. Tokio compensaría solo si bajara de <b>${eur(oj - extra)}</b>.`;
+  }
+  const nivel = ({ low: 'bajo', typical: 'típico', high: 'alto' })[last.nivel] || '—';
+  const rango = Array.isArray(last.rango) ? `${eur(last.rango[0])} – ${eur(last.rango[1])}` : null;
+  const aviso = d.length < 2 ? '<p class="muted">La gráfica necesita al menos dos días de datos; se irá dibujando sola.</p>' : '';
+  box.innerHTML = `
+    <p class="muted">Último dato: <b>${last.fecha}</b> · Google Flights · 4 pasajeros · Economy · actualización automática diaria · ${d.length} ${d.length === 1 ? 'registro' : 'registros'}.</p>
+    ${svgPrecios(d)}
+    <div class="legend"><i><span class="k" style="background:var(--accent)"></span>Open-jaw (KIX / NRT)</i><i><span class="k" style="background:var(--accent-2)"></span>Tokio + trenes</i></div>
+    ${aviso}
+    <div class="tablewrap"><table class="tbl">
+      <thead><tr><th>Opción</th><th class="num">Vuelos</th><th class="num">+ Trenes</th><th class="num">Total</th></tr></thead>
+      <tbody>
+        <tr><td><b>Open-jaw</b> · KIX ida / NRT vuelta</td><td class="num">${eur(oj)}</td><td class="num">—</td><td class="num"><b>${eur(oj)}</b></td></tr>
+        <tr><td>Ida y vuelta a <b>Tokio</b> (NRT)</td><td class="num">${eur(tk)}</td><td class="num">+${eur(extra)}</td><td class="num">${eur(tkTotal)}</td></tr>
+      </tbody>
+    </table></div>
+    <p>${veredicto}</p>
+    <p class="muted">Nivel de precio: <b>${nivel}</b>${rango ? ` (rango típico ${rango})` : ''} · objetivo ≤ ${eur(OBJETIVO_VUELOS)} · Black Friday: 27/11/2026.</p>
+    <p class="muted"><a href="https://www.google.com/travel/flights?hl=es&amp;gl=es&amp;curr=EUR&amp;tfs=CBwQAhoeEgoyMDI3LTAzLTE3agcIARIDVkxDcgcIARIDTlJUGh4SCjIwMjctMDMtMzFqBwgBEgNOUlRyBwgBEgNWTENAAUABQAFAAUgBcAGYAQE&amp;tfu=EgIIAQ" target="_blank" rel="noopener">Ver la ida y vuelta a Tokio en Google Flights</a></p>`;
+}
+renderPrecios();
 </script>
 </body>
 </html>

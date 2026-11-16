@@ -1,0 +1,36 @@
+name: Precios de vuelos
+
+on:
+  schedule:
+    - cron: "10 6 * * *"   # cada dia a las 06:10 UTC (07:10 / 08:10 en Madrid)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: precios
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Consultar Google Flights y actualizar precios.json
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: python3 scripts/precios.py
+
+      - name: Guardar cambios
+        run: |
+          if [ -z "$(git status --porcelain precios.json)" ]; then
+            echo "Sin cambios en precios.json"
+            exit 0
+          fi
+          git config user.name "precios-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add precios.json
+          git commit -m "Precios de vuelos $(date -u +%Y-%m-%d)"
+          git push

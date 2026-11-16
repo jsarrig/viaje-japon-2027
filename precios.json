@@ -1,0 +1,14 @@
+[
+  {
+    "fecha": "2026-11-16",
+    "openjaw": 5110,
+    "tokio": 4906,
+    "nivel": "typical",
+    "rango": [
+      4250,
+      7400
+    ],
+    "extra_trenes": 330,
+    "actualizado": "2026-11-16T21:19:44Z"
+  }
+]
