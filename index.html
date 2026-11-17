@@ -1145,7 +1145,7 @@ document.getElementById('printBtn').addEventListener('click', () => window.print
 
 /* Precios de vuelos · datos de precios.json (actualizado a diario por GitHub Actions) */
 const OBJETIVO_VUELOS = 4200;
-const eur = n => n == null ? '—' : Number(n).toLocaleString('es-ES') + ' €';
+const eur = n => n == null ? '—' : Number(n).toLocaleString('es-ES', { minimumFractionDigits: Number.isInteger(Number(n)) ? 0 : 2, maximumFractionDigits: 2 }) + ' €';
 const fechaCorta = iso => { const p = String(iso).split('-'); return p.length === 3 ? `${p[2]}/${p[1]}` : iso; };
 
 function svgPrecios(pts) {
