@@ -12,6 +12,7 @@ Dos productos:
 import json
 import os
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import date, datetime, timezone
@@ -37,8 +38,16 @@ BASE = dict(
 def consulta(api_key, **extra):
     params = dict(BASE, api_key=api_key, **extra)
     url = "https://serpapi.com/search.json?" + urllib.parse.urlencode(params)
-    with urllib.request.urlopen(url, timeout=60) as respuesta:
-        return json.load(respuesta)
+    try:
+        with urllib.request.urlopen(url, timeout=60) as respuesta:
+            return json.load(respuesta)
+    except urllib.error.HTTPError as e:
+        detalle = e.read().decode("utf-8", "replace")[:300]
+        print("SerpAPI devolvio HTTP %s: %s" % (e.code, detalle))
+        return {}
+    except Exception as e:  # red, timeout, JSON invalido
+        print("Error consultando SerpAPI: %s" % e)
+        return {}
 
 
 def mejor_precio(datos):
@@ -54,6 +63,24 @@ def main():
     if not api_key:
         print("SERPAPI_KEY no configurada: no se registra nada.")
         return 0
+
+    hoy = date.today().isoformat()
+    forzado = (os.environ.get("FORZAR") or "").strip() in ("1", "true", "True") or "--force" in sys.argv
+
+    try:
+        with open(ARCHIVO, encoding="utf-8") as f:
+            serie = json.load(f)
+        if not isinstance(serie, list):
+            serie = []
+    except (FileNotFoundError, json.JSONDecodeError):
+        serie = []
+
+    # Idempotente: si ya hay dato de hoy no se gasta ninguna consulta.
+    if not forzado:
+        for registro in serie:
+            if registro.get("fecha") == hoy and registro.get("openjaw") is not None:
+                print("Ya hay registro de %s; nada que hacer." % hoy)
+                return 0
 
     openjaw = consulta(
         api_key,
@@ -71,7 +98,7 @@ def main():
 
     pistas = tokio.get("price_insights") or {}
     registro = {
-        "fecha": date.today().isoformat(),
+        "fecha": hoy,
         "openjaw": mejor_precio(openjaw),
         "tokio": mejor_precio(tokio),
         "nivel": pistas.get("price_level"),
@@ -84,14 +111,6 @@ def main():
         print("Sin precios validos; no se escribe nada.")
         print(json.dumps(openjaw.get("error") or tokio.get("error"), ensure_ascii=False))
         return 0
-
-    try:
-        with open(ARCHIVO, encoding="utf-8") as f:
-            serie = json.load(f)
-        if not isinstance(serie, list):
-            serie = []
-    except (FileNotFoundError, json.JSONDecodeError):
-        serie = []
 
     serie = [r for r in serie if r.get("fecha") != registro["fecha"]]
     serie.append(registro)
