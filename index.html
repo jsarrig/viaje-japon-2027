@@ -288,6 +288,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
   .chart .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round}
   .chart .ln.oj{stroke:var(--accent)}
   .chart .ln.tokio{stroke:var(--accent-2)}
+  .chart .ln.klm{stroke:var(--ok); stroke-dasharray:6 4}
   .chart .obj{stroke:var(--muted); stroke-width:1.2; stroke-dasharray:5 4; opacity:.7}
   .chart .objtxt{font-size:11px; fill:var(--muted)}
   .legend{display:flex; align-items:center; gap:.35rem; font-size:.82rem; color:var(--muted); margin:.1rem 0 .7rem; flex-wrap:wrap}
@@ -1149,9 +1150,9 @@ const fechaCorta = iso => { const p = String(iso).split('-'); return p.length ==
 
 function svgPrecios(pts) {
   const W = 660, H = 240, L = 56, R = 18, T = 18, B = 36;
-  const val = p => ({ oj: p.openjaw, tk: p.tokio == null ? null : p.tokio + (p.extra_trenes ?? 330) });
+  const val = p => ({ oj: p.openjaw, tk: p.tokio == null ? null : p.tokio + (p.extra_trenes ?? 330), kl: p.klm == null ? null : Number(p.klm) });
   const vals = [OBJETIVO_VUELOS];
-  pts.forEach(p => { const v = val(p); if (v.oj != null) vals.push(v.oj); if (v.tk != null) vals.push(v.tk); });
+  pts.forEach(p => { const v = val(p); if (v.oj != null) vals.push(v.oj); if (v.tk != null) vals.push(v.tk); if (v.kl != null) vals.push(v.kl); });
   let min = Math.min(...vals), max = Math.max(...vals);
   const pad = (max - min) * 0.14 || 250;
   min -= pad; max += pad;
@@ -1166,13 +1167,15 @@ function svgPrecios(pts) {
     `<text x="${L - 8}" y="${(Y(v) + 4).toFixed(1)}" text-anchor="end" class="ax">${Math.round(v).toLocaleString('es-ES')}</text>`).join('');
   const labels = pts.map((p, i) => (n <= 8 || i === 0 || i === n - 1)
     ? `<text x="${X(i).toFixed(1)}" y="${H - 14}" text-anchor="middle" class="ax">${fechaCorta(p.fecha)}</text>` : '').join('');
-  const a = line('oj'), b = line('tk'), yObj = Y(OBJETIVO_VUELOS).toFixed(1);
+  const a = line('oj'), b = line('tk'), k = line('kl'), yObj = Y(OBJETIVO_VUELOS).toFixed(1);
   return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Evolución del precio de los vuelos">
     ${ticks}
     <line x1="${L}" y1="${yObj}" x2="${W - R}" y2="${yObj}" class="obj"/>
     <text x="${W - R}" y="${(Number(yObj) - 6).toFixed(1)}" text-anchor="end" class="objtxt">objetivo ${OBJETIVO_VUELOS.toLocaleString('es-ES')} €</text>
+    ${k ? `<path d="${k}" class="ln klm"/>` : ''}
     ${b ? `<path d="${b}" class="ln tokio"/>` : ''}
     ${a ? `<path d="${a}" class="ln oj"/>` : ''}
+    ${dots('kl', 'var(--ok)')}
     ${dots('tk', 'var(--accent-2)')}
     ${dots('oj', 'var(--accent)')}
     ${labels}
@@ -1206,14 +1209,15 @@ async function renderPrecios() {
   const rango = Array.isArray(last.rango) ? `${eur(last.rango[0])} – ${eur(last.rango[1])}` : null;
   const aviso = d.length < 2 ? '<p class="muted">La gráfica necesita al menos dos días de datos; se irá dibujando sola.</p>' : '';
   box.innerHTML = `
-    <p class="muted">Último dato: <b>${last.fecha}</b> · Google Flights · 4 pasajeros · Economy · actualización automática diaria · ${d.length} ${d.length === 1 ? 'registro' : 'registros'}.</p>
+    <p class="muted">Último dato: <b>${last.fecha}</b> · 4 pasajeros · Economy · actualización automática diaria · ${d.length} ${d.length === 1 ? 'registro' : 'registros'}. Las líneas de Google son una referencia; el precio que manda es el de <b>KLM.es</b>.</p>
     ${svgPrecios(d)}
-    <div class="legend"><i><span class="k" style="background:var(--accent)"></span>Open-jaw (KIX / NRT)</i><i><span class="k" style="background:var(--accent-2)"></span>Tokio + trenes</i></div>
+    <div class="legend"><i><span class="k" style="background:var(--ok)"></span>KLM.es (precio real)</i><i><span class="k" style="background:var(--accent)"></span>Google · open-jaw</i><i><span class="k" style="background:var(--accent-2)"></span>Google · Tokio + trenes</i></div>
     ${aviso}
     <div class="tablewrap"><table class="tbl">
       <thead><tr><th>Opción</th><th class="num">Vuelos</th><th class="num">+ Trenes</th><th class="num">Total</th></tr></thead>
       <tbody>
-        <tr><td><b>Open-jaw</b> · KIX ida / NRT vuelta</td><td class="num">${eur(oj)}</td><td class="num">—</td><td class="num"><b>${eur(oj)}</b></td></tr>
+        <tr><td><b>Open-jaw</b> · KIX ida / NRT vuelta <small>(Google)</small></td><td class="num">${eur(oj)}</td><td class="num">—</td><td class="num"><b>${eur(oj)}</b></td></tr>
+        ${last.klm != null ? `<tr><td><b>Open-jaw en KLM.es</b> · precio real, sin asientos</td><td class="num">${eur(last.klm)}</td><td class="num">—</td><td class="num"><b>${eur(last.klm)}</b></td></tr>` : ''}
         <tr><td>Ida y vuelta a <b>Tokio</b> (NRT)</td><td class="num">${eur(tk)}</td><td class="num">+${eur(extra)}</td><td class="num">${eur(tkTotal)}</td></tr>
       </tbody>
     </table></div>

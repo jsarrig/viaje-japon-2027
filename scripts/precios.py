@@ -75,6 +75,12 @@ def main():
     except (FileNotFoundError, json.JSONDecodeError):
         serie = []
 
+    # Conserva el precio real de KLM.es si ya se habia anotado para hoy.
+    klm_previo = None
+    for registro in serie:
+        if registro.get("fecha") == hoy and registro.get("klm") is not None:
+            klm_previo = registro["klm"]
+
     # Idempotente: si ya hay dato de hoy no se gasta ninguna consulta.
     if not forzado:
         for registro in serie:
@@ -101,6 +107,7 @@ def main():
         "fecha": hoy,
         "openjaw": mejor_precio(openjaw),
         "tokio": mejor_precio(tokio),
+        "klm": klm_previo,
         "nivel": pistas.get("price_level"),
         "rango": pistas.get("typical_price_range"),
         "extra_trenes": EXTRA_TRENES,
