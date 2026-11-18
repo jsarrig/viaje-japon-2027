@@ -24,5 +24,18 @@
     ],
     "extra_trenes": 330,
     "actualizado": "2026-11-17T18:43:06Z"
+  },
+  {
+    "fecha": "2026-11-18",
+    "openjaw": 4711,
+    "tokio": 4906,
+    "klm": null,
+    "nivel": "typical",
+    "rango": [
+      4250,
+      7400
+    ],
+    "extra_trenes": 330,
+    "actualizado": "2026-11-18T05:00:13Z"
   }
 ]
