@@ -291,6 +291,10 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
   .chart .ln.klm{stroke:var(--ok); stroke-dasharray:6 4}
   .chart .obj{stroke:var(--muted); stroke-width:1.2; stroke-dasharray:5 4; opacity:.7}
   .chart .objtxt{font-size:11px; fill:var(--muted)}
+  .chart .val{font-size:10px; font-weight:700; paint-order:stroke; stroke:var(--surface); stroke-width:2.6px; stroke-linejoin:round}
+  .chart .val.oj{fill:var(--accent)}
+  .chart .val.tk{fill:var(--accent-2)}
+  .chart .val.kl{fill:var(--ok)}
   .legend{display:flex; align-items:center; gap:.35rem; font-size:.82rem; color:var(--muted); margin:.1rem 0 .7rem; flex-wrap:wrap}
   .legend .k{width:14px; height:3px; border-radius:2px; display:inline-block; margin-right:.2rem}
   .legend i{margin-left:.7rem; font-style:normal}
@@ -394,7 +398,7 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         <div class="ffoot"><b>Llegada:</b> miércoles 31 a las 19:40 · salida temprana de Narita (~06:55)</div>
       </article>
     </div>
-    <p class="muted flightnote">Horas locales. Tiempos de espera calculados para la conexión en Ámsterdam. Opción de búsqueda <b>sin confirmar y no reservada</b>; números de vuelo y horarios pueden cambiar. KLM opera Narita (NRT), no Haneda. <b>Precio observado 18/11/2026:</b> 4.854,48 € los 4 sin asientos (1.213,62 €/pax); la selección de asientos (360 €) es opcional. Objetivo ≤ 4.200 € · esperando al <b>Black Friday (27/11)</b>. · <a href="https://www.google.com/travel/flights?hl=es&amp;gl=es&amp;curr=EUR&amp;tfs=CBwQAhoeEgoyMDI3LTAzLTE3agcIARIDVkxDcgcIARIDS0lYGh4SCjIwMjctMDMtMzFqBwgBEgNOUlRyBwgBEgNWTENAAUABQAFAAUgBcAGYAQM&amp;tfu=EgIIAQ" target="_blank" rel="noopener">Ver el open-jaw en Google Flights</a> · <a href="https://www.google.com/travel/flights?hl=es&amp;gl=es&amp;curr=EUR&amp;tfs=CBwQAhoeEgoyMDI3LTAzLTE3agcIARIDVkxDcgcIARIDTlJUGh4SCjIwMjctMDMtMzFqBwgBEgNOUlRyBwgBEgNWTENAAUABQAFAAUgBcAGYAQE&amp;tfu=EgIIAQ" target="_blank" rel="noopener">Ver la ida y vuelta a Tokio en Google Flights</a>.</p>
+    <p class="muted flightnote">Horas locales. Tiempos de espera calculados para la conexión en Ámsterdam. Opción de búsqueda <b>sin confirmar y no reservada</b>; números de vuelo y horarios pueden cambiar. KLM opera Narita (NRT), no Haneda. <b>Precio observado 19/11/2026:</b> 4.710,80 € los 4 sin asientos (1.177,70 €/pax); la selección de asientos (360 €) es opcional. Objetivo ≤ 4.200 € · esperando al <b>Black Friday (27/11)</b>. · <a href="https://www.google.com/travel/flights?hl=es&amp;gl=es&amp;curr=EUR&amp;tfs=CBwQAhoeEgoyMDI3LTAzLTE3agcIARIDVkxDcgcIARIDS0lYGh4SCjIwMjctMDMtMzFqBwgBEgNOUlRyBwgBEgNWTENAAUABQAFAAUgBcAGYAQM&amp;tfu=EgIIAQ" target="_blank" rel="noopener">Ver el open-jaw en Google Flights</a> · <a href="https://www.google.com/travel/flights?hl=es&amp;gl=es&amp;curr=EUR&amp;tfs=CBwQAhoeEgoyMDI3LTAzLTE3agcIARIDVkxDcgcIARIDTlJUGh4SCjIwMjctMDMtMzFqBwgBEgNOUlRyBwgBEgNWTENAAUABQAFAAUgBcAGYAQE&amp;tfu=EgIIAQ" target="_blank" rel="noopener">Ver la ida y vuelta a Tokio en Google Flights</a>.</p>
 
     <div class="grid">
       <div class="card">
@@ -764,7 +768,7 @@ const BUDGET = [
   { id:'osaka', c:'Hotel Osaka · APA Namba Ekimae Tower', note:'20–24 mar · 4 noches · 2 hab. · desayuno no incluido', eur:663, confirmed:true, paid:'destino' },
   { id:'takayama', c:'Hotel Takayama · Spa Hotel Alpina', note:'24–26 mar · 2 noches · 2 hab. · desayuno incluido', eur:359.31, confirmed:true, paid:'destino' },
   { id:'tokio', c:'Hotel Tokio · APA Yamanote Otsuka Ekimae Tower', note:'26–31 mar · 5 noches · 2 hab. · sin desayuno · cancela 24 mar', eur:1176, confirmed:true, paid:'destino' },
-  { id:'vuelos', c:'Vuelos KLM/Transavia (4)', note:'observado 18/11 · 1.213,62 €/pax · sin asientos', eur:4854.48, confirmed:false, paid:'pending' },
+  { id:'vuelos', c:'Vuelos KLM/Transavia (4)', note:'observado 19/11 · 1.177,70 €/pax · sin asientos', eur:4710.8, confirmed:false, paid:'pending' },
   { id:'usj', c:'USJ + Express Pass 4 (4)', note:'23 mar · precio dinámico', eur:730, confirmed:false, paid:'pending' },
   { id:'transporte', c:'Transporte (trenes, buses, ferry)', note:'≈ 71.900 ¥/persona', eur:1900, confirmed:false, paid:'pending' },
   { id:'entradas', c:'Entradas y extras', note:'templos, teamLab, etc.', eur:250, confirmed:false, paid:'pending' },
@@ -1163,6 +1167,26 @@ function svgPrecios(pts) {
     .filter(Boolean).map((c, i) => (i ? 'L' : 'M') + c[0].toFixed(1) + ' ' + c[1].toFixed(1)).join(' ');
   const dots = (key, color) => pts.map((p, i) => { const v = val(p)[key];
     return v == null ? '' : `<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3.6" fill="${color}"/>`; }).join('');
+  const cajas = [];
+  const choca = (cx, cy, w, h) => cajas.some(b => Math.abs(b.cx - cx) < (b.w + w) / 2 + 3 && Math.abs(b.cy - cy) < (b.h + h) / 2 + 2);
+  const etiquetas = (key, cls) => pts.map((p, i) => {
+    const v = val(p)[key];
+    if (v == null) return '';
+    const x = X(i), y = Y(v), num = Number(v);
+    const txt = num.toLocaleString('es-ES', { minimumFractionDigits: Number.isInteger(num) ? 0 : 2, maximumFractionDigits: 2 });
+    const w = txt.length * 6 + 4, h = 11;
+    const opciones = [[0, -10, 'middle'], [0, 17, 'middle'], [-9, -10, 'end'], [9, -10, 'start'],
+      [-9, 17, 'end'], [9, 17, 'start'], [0, -21, 'middle'], [0, 28, 'middle']];
+    for (const [dx, dy, anchor] of opciones) {
+      const lx = x + dx, ly = y + dy;
+      const cx = anchor === 'middle' ? lx : anchor === 'end' ? lx - w / 2 : lx + w / 2;
+      if (cx - w / 2 < L - 10 || cx + w / 2 > W - 2 || ly < T + 8 || ly > H - B - 2) continue;
+      if (choca(cx, ly - 3, w, h)) continue;
+      cajas.push({ cx, cy: ly - 3, w, h });
+      return `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" class="val ${cls}">${txt}</text>`;
+    }
+    return '';
+  }).join('');
   const ticks = [min, (min + max) / 2, max].map(v =>
     `<text x="${L - 8}" y="${(Y(v) + 4).toFixed(1)}" text-anchor="end" class="ax">${Math.round(v).toLocaleString('es-ES')}</text>`).join('');
   const labels = pts.map((p, i) => (n <= 8 || i === 0 || i === n - 1)
@@ -1178,6 +1202,9 @@ function svgPrecios(pts) {
     ${dots('kl', 'var(--ok)')}
     ${dots('tk', 'var(--accent-2)')}
     ${dots('oj', 'var(--accent)')}
+    ${etiquetas('kl', 'kl')}
+    ${etiquetas('tk', 'tk')}
+    ${etiquetas('oj', 'oj')}
     ${labels}
   </svg>`;
 }
@@ -1205,8 +1232,9 @@ async function renderPrecios() {
       ? `<b>Tokio compensa:</b> ${eur(neto)} netos a favor (ya incluye los ${eur(extra)} de trenes).`
       : `El <b>open-jaw gana por ${eur(-neto)}</b>. Tokio compensaría solo si bajara de <b>${eur(oj - extra)}</b>.`;
   }
-  const nivel = ({ low: 'bajo', typical: 'típico', high: 'alto' })[last.nivel] || '—';
-  const rango = Array.isArray(last.rango) ? `${eur(last.rango[0])} – ${eur(last.rango[1])}` : null;
+  const conNivel = [...d].reverse().find(x => x.nivel && Array.isArray(x.rango)) || last;
+  const nivel = ({ low: 'bajo', typical: 'típico', high: 'alto' })[conNivel.nivel] || '—';
+  const rango = Array.isArray(conNivel.rango) ? `${eur(conNivel.rango[0])} – ${eur(conNivel.rango[1])}` : null;
   const aviso = d.length < 2 ? '<p class="muted">La gráfica necesita al menos dos días de datos; se irá dibujando sola.</p>' : '';
   box.innerHTML = `
     <p class="muted">Último dato: <b>${last.fecha}</b> · 4 pasajeros · Economy · actualización automática diaria · ${d.length} ${d.length === 1 ? 'registro' : 'registros'}. Las líneas de Google son una referencia; el precio que manda es el de <b>KLM.es</b>.</p>
