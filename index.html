@@ -245,6 +245,7 @@ h2 .sec{color:var(--muted); font-weight:500}
 .mini.confirmed{color:var(--ok); border-color:color-mix(in srgb,var(--ok) 40%,transparent)}
 .mini.pending{color:var(--warn)}
 .budget{min-width:760px}
+.trtable{min-width:940px}
 .budget td small{display:block; color:var(--muted); font-size:.72rem; font-weight:400}
 .budget tr[data-paid="paid"]{background:color-mix(in srgb,var(--ok) 6%,transparent)}
 .budget tr[data-paid="destino"]{background:color-mix(in srgb,var(--warn) 5%,transparent)}
@@ -469,13 +470,14 @@ footer .wrap{display:flex; gap:12px; justify-content:space-between; flex-wrap:wr
         </div>
       </div>
       <div class="tablewrap">
-        <table class="tbl">
-          <thead><tr><th>Tramo</th><th class="num">Yenes</th><th class="num">Euros</th></tr></thead>
+        <table class="tbl trtable">
+          <thead><tr><th>Tramo</th><th>Fecha</th><th>Duración</th><th>¿Reservar?</th><th>Estado</th><th class="num">Yenes</th><th class="num">Euros</th></tr></thead>
           <tbody id="trBody"></tbody>
-          <tfoot><tr><td>Total</td><td class="num" id="trYen"></td><td class="num" id="trEur"></td></tr></tfoot>
+          <tfoot><tr><td colspan="5">Total</td><td class="num" id="trYen"></td><td class="num" id="trEur"></td></tr></tfoot>
         </table>
       </div>
       <p class="muted">Cambio editable. Precios orientativos a nov 2026. Las opciones de abajo se recalculan con el mismo cambio. Alternativa más barata Takayama → Tokio: bus directo a Shinjuku (~5 h 30, ~7.500 ¥). Sin Japan Rail Pass: billetes sueltos + SUICA.</p>
+      <p class="muted">⚠️ <b>Reservas a 25/11/2026:</b> solo los <b>vuelos</b> están reservados y pagados; <b>ningún transporte terrestre está reservado todavía</b>. Los Shinkansen se abren ~1 mes antes; los buses de temporada alta (Nohi y Fuji) conviene reservarlos con antelación.</p>
     </div>
 
     <div class="card">
@@ -725,16 +727,16 @@ const DAYS = [
 ];
 
 const TRANSPORT = [
-  { t:'KIX → Kioto (Haruka con descuento)', yen:2700 },
-  { t:'Kioto → Osaka (JR rapid)', yen:570 },
-  { t:'Osaka ↔ Hiroshima (Nozomi)', yen:21000 },
-  { t:'Ferry Miyajima (ida y vuelta)', yen:400 },
-  { t:'Osaka → Takayama (Nozomi + Hida)', yen:12080 },
-  { t:'Takayama ↔ Shirakawa-go (bus Nohi)', yen:5800 },
-  { t:'Takayama → Tokio (Hida + Nozomi)', yen:17440 },
-  { t:'Bus al Fuji (ida y vuelta)', yen:4000 },
-  { t:'Skyliner + JR a Narita', yen:2510 },
-  { t:'Metro, buses y USJ', yen:6000 }
+  { t:'KIX → Kioto (Haruka)', yen:2700, date:'Mié 17 mar', dur:'~1 h 15', res:'Asiento reservable', booked:false },
+  { t:'Kioto → Osaka (JR rapid)', yen:570, date:'Sáb 20 mar', dur:'~30 min', res:'No', booked:null },
+  { t:'Osaka ↔ Hiroshima (Nozomi)', yen:21000, date:'Dom 21 mar', dur:'2 h 15 / trayecto', res:'Sí, recomendada', booked:false },
+  { t:'Ferry Miyajima (ida y vuelta)', yen:400, date:'Dom 21 mar', dur:'~10 min', res:'No', booked:null },
+  { t:'Osaka → Takayama (Nozomi + Hida)', yen:12080, date:'Mié 24 mar', dur:'~3 h 30', res:'Sí (Hida + Nozomi)', booked:false },
+  { t:'Takayama ↔ Shirakawa-go (bus Nohi)', yen:5800, date:'Jue 25 mar', dur:'~50 min / trayecto', res:'Sí, recomendada', booked:false },
+  { t:'Takayama → Tokio (Hida + Nozomi)', yen:17440, date:'Vie 26 mar', dur:'~4 h 30–5 h', res:'Sí (Hida + Nozomi)', booked:false },
+  { t:'Bus al Fuji (Shinjuku ↔ Kawaguchiko)', yen:4000, date:'Dom 28 mar', dur:'~1 h 45 / trayecto', res:'Sí, online', booked:false },
+  { t:'Otsuka → Narita (Skyliner + JR)', yen:2510, date:'Mié 31 mar', dur:'~1 h', res:'Asiento Skyliner', booked:false },
+  { t:'Metro, buses y USJ', yen:6000, date:'Todo el viaje', dur:'—', res:'No', booked:null }
 ];
 
 const TRANSPORT_OPTIONS = [
@@ -915,7 +917,10 @@ function renderTransport() {
   trBody.innerHTML = TRANSPORT.map(r => {
     const yen = r.yen * mult;
     yenTotal += yen;
-    return '<tr><td>' + r.t + '</td><td class="num">' + yenf(yen) + '</td><td class="num">' + eur1(yen / rt) + '</td></tr>';
+    const estado = r.booked === true ? '<span style="color:var(--ok);font-weight:700">Reservado</span>'
+      : r.res === 'No' ? '<span class="muted">No requiere</span>'
+      : '<span style="color:var(--warn);font-weight:700">No reservado</span>';
+    return '<tr><td>' + r.t + '</td><td>' + (r.date || '—') + '</td><td>' + (r.dur || '—') + '</td><td>' + (r.res || '—') + '</td><td>' + estado + '</td><td class="num">' + yenf(yen) + '</td><td class="num">' + eur1(yen / rt) + '</td></tr>';
   }).join('');
   trYen.textContent = yenf(yenTotal);
   trEur.textContent = eur1(yenTotal / rt);
